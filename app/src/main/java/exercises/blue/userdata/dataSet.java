@@ -1,14 +1,11 @@
 package exercises.blue.userdata;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 /**
  * Created by getbl on 2016/4/20.
  */
 public class dataSet {
-    private static final String TAG = "dataSet";
     ArrayList<userDatum> list ;//= new ArrayList<>();
     static dataSet instance;
 
@@ -27,7 +24,7 @@ public class dataSet {
 
     public void removeItem(int position){
         this.list.remove(position);
-        Log.e(TAG, "removeItem: hello world" );
+
     }
 
     public void setList(ArrayList<userDatum> list) {
