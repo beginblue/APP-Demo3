@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.text.style.TtsSpan;
 import android.util.Log;
 import android.view.View;
@@ -35,8 +36,10 @@ public class MainActivity extends AppCompatActivity
 
     ViewPager pager;
     public static String TAG = "inMain";
-    dataSet set = dataSet.newInstance();
+    dataSet set;
     fragmentPagerAdapter adapter;
+    fragmentFriends.friendRecViewAdapter mAdapter;
+    fragmentFriends friends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +81,13 @@ public class MainActivity extends AppCompatActivity
         assert tabs != null;
         tabs.setupWithViewPager(pager);
 
+        set = dataSet.newInstance();
 
     }
 
     private void showMyDialog() {
         Intent addActivityIntent = new Intent(getApplicationContext(), publishActivity.class);
         startActivityForResult(addActivityIntent, 213);
-
     }
 
     @Override
@@ -127,8 +130,25 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            mAdapter.addItem(
+                    new userDatum("test title1", "test content", 0, 125)
+            );
+            mAdapter.addItem(
+                    new userDatum("test title2", "test content", 0, 125)
+            );
+            mAdapter.addItem(
+                    new userDatum("test title3", "test content", 0, 125)
+            );
+            mAdapter.addItem(
+                    new userDatum("test title4", "test content", 0, 125)
+            );
+            mAdapter.addItem(
+                    new userDatum("test title5", "test content", 0, 125)
+            );
+
         } else if (id == R.id.nav_gallery) {
+
+            mAdapter.removeItem(1);
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -175,8 +195,14 @@ public class MainActivity extends AppCompatActivity
             datum.setCategory(bundle.getInt("category"));
             //listAdapter adapter = ((fragmentFriends) this.adapter.getItem(0)).getAdapter();
             //adapter.add(datum);
-            set.addItem(datum);
+            //set.addItem(datum);
 
+            friends = fragmentFriends.newInstance();
+
+            mAdapter = friends.getAdapter();
+            if (mAdapter == null) Log.e(TAG, "onActivityResult: adapter null");
+            else mAdapter.addItem(datum);
+            //fragmentFriends fragmentFriends = (fragmentFriends) getFragmentManager().findFragmentById(R.layout.friends);
             for (int count = 0; count < set.getList().length; count++) {
                 Log.e(TAG, "onActivityResult: " + set.getList()[count].getTitle());
             }
@@ -187,9 +213,9 @@ public class MainActivity extends AppCompatActivity
                 String result = scanResult.getContents();
                 userDatum datum = new userDatum();
                 datum.setTitle(result);
-                datum.setContent(System.currentTimeMillis()+"");
+                datum.setContent(System.currentTimeMillis() + "");
                 datum.setCategory(0);
-                set.addItem(datum);
+                set.addItem(datum, 0);
                 Log.d("code", result);
                 Toast.makeText(this, result, Toast.LENGTH_LONG).show();
             }

@@ -1,5 +1,8 @@
 package exercises.blue.userdata;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 /**
@@ -7,6 +10,7 @@ import java.util.ArrayList;
  */
 public class dataSet {
     ArrayList<userDatum> list ;//= new ArrayList<>();
+    private static final String TAG = "dataSet";
     static dataSet instance;
 
     private dataSet(){
@@ -23,12 +27,25 @@ public class dataSet {
     }
 
     public void removeItem(int position){
-        this.list.remove(position);
+        if(list.get(position)==null) {
+            for(userDatum datum : instance.list){
+                Log.e(TAG, "removeItem:"+datum.getTitle());
+            }
+
+            return;
+        }
+            //Toast.makeText(, "what", Toast.LENGTH_SHORT).show();
+        instance.list.remove(position);
 
     }
 
     public void setList(ArrayList<userDatum> list) {
         this.list = list;
+    }
+
+
+    public void addItem(userDatum datum, int position){
+        instance.list.add(position,datum);
     }
 
     public void addItem(userDatum datum){
