@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.text.style.TtsSpan;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+import java.util.Date;
 
 import exercises.blue.userdata.dataSet;
 import exercises.blue.userdata.userDatum;
@@ -125,12 +132,16 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
+            //Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+            //startActivity(intent);
         } else if (id == R.id.dianming) {
             //TODO:点名页面
             Intent intent = new Intent(getApplicationContext(), dianming.class);
             startActivity(intent);
         } else if (id == R.id.nav_share) {
-
+            //Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+            IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
+            intentIntegrator.initiateScan();
         } else if (id == R.id.nav_send) {
 
         }
@@ -153,7 +164,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==444||resultCode==0) return;
+        if (resultCode == 444 || resultCode == 0) return;
         if (requestCode == 213) {
             // userDatum datum = (userDatum) data.getExtras().get("data");
             userDatum datum = new userDatum();
@@ -168,6 +179,19 @@ public class MainActivity extends AppCompatActivity
 
             for (int count = 0; count < set.getList().length; count++) {
                 Log.e(TAG, "onActivityResult: " + set.getList()[count].getTitle());
+            }
+
+        } else {
+            IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (scanResult != null) {
+                String result = scanResult.getContents();
+                userDatum datum = new userDatum();
+                datum.setTitle(result);
+                datum.setContent(System.currentTimeMillis()+"");
+                datum.setCategory(0);
+                set.addItem(datum);
+                Log.d("code", result);
+                Toast.makeText(this, result, Toast.LENGTH_LONG).show();
             }
         }
     }
