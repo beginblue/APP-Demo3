@@ -162,9 +162,9 @@ public class MainActivity extends AppCompatActivity
             datum.setTitle(bundle.getString("title"));
             datum.setContent(bundle.getString("content"));
             datum.setCategory(bundle.getInt("category"));
-            listAdapter adapter = ((fragmentFriends) this.adapter.getItem(0)).getAdapter();
-            adapter.add(datum);
-            //set.addItem(datum);
+            //listAdapter adapter = ((fragmentFriends) this.adapter.getItem(0)).getAdapter();
+            //adapter.add(datum);
+            set.addItem(datum);
 
             for (int count = 0; count < set.getList().length; count++) {
                 Log.e(TAG, "onActivityResult: " + set.getList()[count].getTitle());
