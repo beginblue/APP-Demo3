@@ -5,21 +5,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff999999"
+    android:background="@color/primary_light"
     android:padding="5dp"
     android:orientation="vertical">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recList"
-        android:background="#ffffff"
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <!--<ListView-->
-        <!--android:id="@+id/list"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="#FFFFFF"-->
-        <!--android:paddingTop="3dp"/>-->
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:paddingTop="3dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
