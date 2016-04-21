@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\Users\\getbl\\Documents\\AndroidProjects\\demo3\\qrcode\\build\\intermediates\\res\\merged\\debug\\drawable\\launcher_icon.png",
+        "source": "C:\\Users\\getbl\\Documents\\AndroidProjects\\demo3\\qrcode\\src\\main\\res\\drawable\\launcher_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\getbl\\Documents\\AndroidProjects\\demo3\\qrcode\\build\\intermediates\\res\\merged\\debug\\drawable\\share_via_barcode.png",
+        "source": "C:\\Users\\getbl\\Documents\\AndroidProjects\\demo3\\qrcode\\src\\main\\res\\drawable\\share_via_barcode.png"
+    }
+]
