@@ -18,8 +18,12 @@ public class dataSet {
         return instance;
     }
 
-    public userDatum[] getList() {
-        return list.toArray(new userDatum[]{});
+//    public userDatum[] getList() {
+//        return list.toArray(new userDatum[]{});
+//    }
+
+    public ArrayList<userDatum> getList(){
+        return instance.list;
     }
 
     public void removeItem(int position){

@@ -1,27 +1,27 @@
 package layout;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import exercises.blue.demoagain.R;
-import exercises.blue.demoagain.listAdapter;
-import exercises.blue.userdata.dataSet;
+import exercises.blue.demoagain.recyclerAdapter;
+import exercises.blue.userdata.userDatum;
 
 /**
  * Created by getbl on 2016/4/18.
  */
 public class fragmentFriends extends Fragment {
-    listAdapter adapter;
-    ListView mListView;
+
+    static recyclerAdapter adapter;
+    RecyclerView mRecyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class fragmentFriends extends Fragment {
 
     }
 
-    public listAdapter getAdapter() {
+    public recyclerAdapter getAdapter() {
         return adapter;
     }
 
@@ -37,35 +37,28 @@ public class fragmentFriends extends Fragment {
         Bundle args = new Bundle();
         fragmentFriends fragment = new fragmentFriends();
         fragment.setArguments(args);
+        if(adapter==null) adapter=new recyclerAdapter();
         return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        adapter = new listAdapter();
+        adapter = new recyclerAdapter();
         View view = inflater.inflate(R.layout.friends, container, false);
-        mListView = (ListView) view.findViewById(R.id.list);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDialog(position);
-                //Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
-            }
-        });
-//        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                showDialog(position);
-//
-//
-//                return false;
-//            }
-//        });
-        mListView.setAdapter(adapter);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
         return view;
     }
 
+    /**
+     * Abandoned. Maybe it will be rewrite in future.
+     * @param position the position of the item which you want to delete.
+     */
     private void showDialog(final int position) {
         final int Position = position;
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());

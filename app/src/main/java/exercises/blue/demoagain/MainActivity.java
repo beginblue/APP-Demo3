@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     public static String TAG = "inMain";
     dataSet set = dataSet.newInstance();
     fragmentPagerAdapter adapter;
+    recyclerAdapter mRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity
         assert tabs != null;
         tabs.setupWithViewPager(pager);
 
+        fragmentFriends friends = fragmentFriends.newInstance();
+
+        mRecyclerAdapter = friends.getAdapter();
 
     }
 
@@ -128,10 +132,19 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            if(mRecyclerAdapter!=null) {
+                mRecyclerAdapter.add(new userDatum("text title 1", "test content 1", 0, 0));
+                mRecyclerAdapter.add(new userDatum("text title 2", "test content 2", 1, 0));
+                mRecyclerAdapter.add(new userDatum("text title 3", "test content 3", 0, 0));
+            }
+            else {
+                Log.e(TAG, "onNavigationItemSelected: adapter is null" );
+            }
         } else if (id == R.id.nav_gallery) {
 
+            mRecyclerAdapter.remove(0);
         } else if (id == R.id.nav_slideshow) {
-
+            mRecyclerAdapter.add(new userDatum("text title 2","test content 2",1,0));
             //Intent intent = new Intent("com.google.zxing.client.android.SCAN");
             //startActivity(intent);
         } else if (id == R.id.dianming) {
@@ -173,12 +186,10 @@ public class MainActivity extends AppCompatActivity
             datum.setTitle(bundle.getString("title"));
             datum.setContent(bundle.getString("content"));
             datum.setCategory(bundle.getInt("category"));
-            //listAdapter adapter = ((fragmentFriends) this.adapter.getItem(0)).getAdapter();
-            //adapter.add(datum);
-            set.addItem(datum);
+           // set.addItem(datum);
 
-            for (int count = 0; count < set.getList().length; count++) {
-                Log.e(TAG, "onActivityResult: " + set.getList()[count].getTitle());
+            for (int count = 0; count < set.getList().size(); count++) {
+                Log.e(TAG, "onActivityResult: " + set.getList().get(count).getTitle());
             }
 
         } else {

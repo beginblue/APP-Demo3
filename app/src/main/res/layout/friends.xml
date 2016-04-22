@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--通知界面F-->
 <!--TODO:山寨个微博或者知乎界面出来  把点赞换成[我知道了]-->
-<android.support.design.widget.CoordinatorLayout
+<android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_light"
     android:padding="5dp"
+    android:id="@+id/list"
     android:orientation="vertical">
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:paddingTop="3dp"/>
-
-</android.support.design.widget.CoordinatorLayout>
+</android.support.v7.widget.RecyclerView>
