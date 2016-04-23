@@ -53,7 +53,11 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
     }
 
     public void remove(int position){
+        if(position>mData.size()) position = mData.size();
+        if(position<0) position=0;
+
         notifyItemRemoved(position);
+
         mData.remove(position);
     }
 

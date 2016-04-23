@@ -26,10 +26,10 @@ public class dataSet {
         return instance.list;
     }
 
-    public void removeItem(int position){
-        this.list.remove(position);
-
-    }
+//    public void removeItem(int position){
+//        this.list.remove(position);
+//
+//    }
 
     public void setList(ArrayList<userDatum> list) {
         this.list = list;

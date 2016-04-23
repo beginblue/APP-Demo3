@@ -22,6 +22,7 @@ public class fragmentFriends extends Fragment {
 
     static recyclerAdapter adapter;
     RecyclerView mRecyclerView;
+    fragmentFriends mFragmentFriends;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +55,15 @@ public class fragmentFriends extends Fragment {
 
         return view;
     }
+
+
+    public void updateView(int position){
+        //mRecyclerView.updateViewLayout();
+       // mRecyclerView.getAdapter().notifyItemChanged(position);
+    }
+
+
+
 
     /**
      * Abandoned. Maybe it will be rewrite in future.

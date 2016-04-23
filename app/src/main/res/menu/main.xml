@@ -2,8 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/test_add"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Add one at the last"
         app:showAsAction="never"/>
+    <item android:id="@+id/test_remove_at_zero"
+          android:orderInCategory="50"
+          android:title="Delete the frist"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/test_add_more"
+          android:orderInCategory="50"
+          android:title="Add three at the last"
+          app:showAsAction="never"/>
+    <item android:id="@+id/test_remove_at"
+          android:orderInCategory="100"
+          android:title="Remove a specific one"
+          app:showAsAction="never"/>
+
 </menu>
