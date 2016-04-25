@@ -6,9 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
-import exercises.blue.userdata.userDatum;
+import exercises.blue.userdata.friendsDatum;
 import layout.agenda;
 import layout.fragmentFriends;
 
@@ -75,12 +73,12 @@ class fragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
 
-    public void addFriends(userDatum datum,int position){
+    public void addFriends(friendsDatum datum, int position){
         friends.getAdapter().add(datum,position);
         setFragments(friends);
     }
 
-    public void addFriends(userDatum datum){
+    public void addFriends(friendsDatum datum){
         friends.getAdapter().add(datum);
         setFragments(friends);
     }
@@ -104,9 +102,13 @@ class fragmentPagerAdapter extends FragmentPagerAdapter {
             ft.hide(fragment);
             ft.show(fragment);
         }
-
-        ft.commit();
-        ft=null;
+        /**
+         * fragment在其他Activity返回时失去状态了
+         * 用CommitAllowingStateLoss兼容
+         */
+        ft.commitAllowingStateLoss();
+        //ft.commit();
+        //ft=null;
         //fm.executePendingTransactions();
         notifyDataSetChanged();
 

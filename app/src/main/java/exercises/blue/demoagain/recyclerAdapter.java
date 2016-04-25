@@ -1,17 +1,15 @@
 package exercises.blue.demoagain;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import exercises.blue.userdata.dataSet;
-import exercises.blue.userdata.userDatum;
+import exercises.blue.userdata.friendsDataSet;
+import exercises.blue.userdata.friendsDatum;
 
 /**
  * Created by getbl on 2016/4/22.
@@ -19,7 +17,7 @@ import exercises.blue.userdata.userDatum;
  */
 public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recyclerViewHolder> {
 
-    public ArrayList<userDatum> mData = dataSet.newInstance().getList();
+    public ArrayList<friendsDatum> mData = friendsDataSet.newInstance().getList();
 
     @Override
     public recyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,7 +29,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
 
     @Override
     public void onBindViewHolder(recyclerViewHolder holder, int position) {
-        userDatum datum = mData.get(position);
+        friendsDatum datum = mData.get(position);
         holder.title.setText(datum.getTitle());
         holder.content.setText(datum.getContent());
         holder.isHot.setText((datum.getCategory()==1)?"热门":" ");
@@ -42,12 +40,12 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
         return mData.size();
     }
 
-    public void add(userDatum datum){
+    public void add(friendsDatum datum){
         notifyItemInserted(mData.size());
         mData.add(datum);
     }
 
-    public void add(userDatum datum,int position){
+    public void add(friendsDatum datum, int position){
         notifyItemInserted(position);
         mData.add(position,datum);
     }

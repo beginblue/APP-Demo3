@@ -20,11 +20,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
-import exercises.blue.userdata.dataSet;
-import exercises.blue.userdata.userDatum;
+import exercises.blue.userdata.friendsDataSet;
+import exercises.blue.userdata.friendsDatum;
 import layout.agenda;
 import layout.fragmentFriends;
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     ViewPager pager;
     public static String TAG = "inMain";
-    dataSet set = dataSet.newInstance();
+    friendsDataSet set = friendsDataSet.newInstance();
     fragmentPagerAdapter adapter;
     recyclerAdapter mRecyclerAdapter;
     fragmentFriends mFragmentFriends;
@@ -124,12 +125,12 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.test_add:
-                adapter.addFriends(new userDatum("text title 1", "test content 1", 0, 0));
+                adapter.addFriends(new friendsDatum("text title 1", "test content 1", 0, 0));
                 break;
             case R.id.test_add_more:
-                adapter.addFriends(new userDatum("text title 1", "test content 1", 0, 0));
-                adapter.addFriends(new userDatum("text title 2", "test content 2", 1, 0));
-                adapter.addFriends(new userDatum("text title 3", "test content 3", 0, 0));
+                adapter.addFriends(new friendsDatum("text title 1", "test content 1", 0, 0));
+                adapter.addFriends(new friendsDatum("text title 2", "test content 2", 1, 0));
+                adapter.addFriends(new friendsDatum("text title 3", "test content 3", 0, 0));
                 break;
             case R.id.test_remove_at_zero:
                 adapter.removeFriends(0);
@@ -193,22 +194,31 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    /**
+     * 其他Activity返回时回调.
+     * 通过Floating ActionBar 添加新条目.
+     * @param requestCode requestCode没有使用.
+     * @param resultCode 213 是新建用Activity确定并返回信息的resultCode.
+     *                   444 是新建用Activity取消的resultCode.
+     * @param data 数据
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 444 || resultCode == 0) return;
         if (requestCode == 213) {
-            // userDatum datum = (userDatum) data.getExtras().get("data");
-            userDatum datum = new userDatum();
-            Bundle bundle = data.getBundleExtra("user");
-
-            datum.setTitle(bundle.getString("title"));
-            datum.setContent(bundle.getString("content"));
-            datum.setCategory(bundle.getInt("category"));
-            adapter.addFriends(datum);
-//            for (int count = 0; count < set.getList().size(); count++) {
-//                Log.e(TAG, "onActivityResult: " + set.getList().get(count).getTitle());
-//            }
-
+            Bundle receivedData =data.getBundleExtra("user");
+            String title = receivedData.getString("title");
+            String content = receivedData.getString("content");
+            int category = receivedData.getInt("category");
+            Log.e(TAG, "onActivityResult:"+title);
+            Log.e(TAG, "onActivityResult:"+content);
+            Log.e(TAG, "onActivityResult:"+category);
+            try{
+            adapter.addFriends(new friendsDatum(title,content,category,0));}
+            catch (Exception e){
+                Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
         }
 
     }

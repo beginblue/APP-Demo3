@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 /**
  * Created by getbl on 2016/4/20.
  */
-public class userDatum {
+public class friendsDatum {
 
     private String title;
     private String content;
@@ -44,14 +44,14 @@ public class userDatum {
         this.goodCount = goodCount;
     }
 
-    public userDatum(){
+    public friendsDatum(){
         title="Default Title";
         content="Content";
         goodCount=0;
         category=0;
     }
 
-    public userDatum(String title, String content, int category, int goodCount){
+    public friendsDatum(String title, String content, int category, int goodCount){
         this.title=title;
         this.content=content;
         this.category=category;

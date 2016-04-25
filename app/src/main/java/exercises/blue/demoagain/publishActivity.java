@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-import exercises.blue.userdata.dataSet;
-import exercises.blue.userdata.userDatum;
-
 public class publishActivity extends AppCompatActivity {
 
 
@@ -33,7 +30,7 @@ public class publishActivity extends AppCompatActivity {
         int id = view.getId();
         if(id==R.id.add_pub)
         {
-//            userDatum user = new userDatum();
+//            friendsDatum user = new friendsDatum();
 //            user.setTitle(title.getText().toString());
 //            user.setContent(content.getText().toString());
 //            user.setCategory(tgbutton.isChecked()?1:0);
