@@ -15,7 +15,7 @@ import exercises.blue.userdata.friendsDatum;
  * Created by getbl on 2016/4/22.
  * Rewrite the adapter
  */
-public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recyclerViewHolder> {
+public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecyclerAdapter.recyclerViewHolder> {
 
     public ArrayList<friendsDatum> mData = friendsDataSet.newInstance().getList();
 
@@ -47,11 +47,13 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
 
     public void add(friendsDatum datum, int position){
         notifyItemInserted(position);
+        if(position>mData.size()) mData.add(datum);
+        if(position<0) position=0;
         mData.add(position,datum);
     }
 
     public void remove(int position){
-        if(position>mData.size()) position = mData.size();
+        if(position>=mData.size()) position = mData.size()-1;
         if(position<0) position=0;
 
         notifyItemRemoved(position);

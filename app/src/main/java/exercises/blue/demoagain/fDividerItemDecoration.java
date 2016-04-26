@@ -10,10 +10,10 @@ import android.view.View;
  * 据说可以让items分开
  * Created by getbl on 2016/4/25.
  */
-public class DividerItemDecoration extends RecyclerView.ItemDecoration
+public class fDividerItemDecoration extends RecyclerView.ItemDecoration
 {
     private  int space;
-    public DividerItemDecoration(int space){
+    public fDividerItemDecoration(int space){
         this.space=space;
     }
 

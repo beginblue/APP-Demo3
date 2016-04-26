@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity
 
     ViewPager pager;
     public static String TAG = "inMain";
-    friendsDataSet set = friendsDataSet.newInstance();
+    //friendsDataSet set = friendsDataSet.newInstance();
     fragmentPagerAdapter adapter;
-    recyclerAdapter mRecyclerAdapter;
+    friendsRecyclerAdapter mFriendsRecyclerAdapter;
     fragmentFriends mFragmentFriends;
     agenda mAgenda;
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
 
         mFragmentFriends = (fragmentFriends) adapter.getFragment(0);
         mAgenda = (agenda) adapter.getFragment(1);
-        mRecyclerAdapter = mFragmentFriends.getAdapter();
+        mFriendsRecyclerAdapter = mFragmentFriends.getAdapter();
     }
 
     private void showMyDialog() {
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.test_add:
-                adapter.addFriends(new friendsDatum("text title 1", "test content 1", 0, 0));
+                showItemAcitonDialog(R.id.test_add);
                 break;
             case R.id.test_add_more:
                 adapter.addFriends(new friendsDatum("text title 1", "test content 1", 0, 0));
@@ -136,7 +136,13 @@ public class MainActivity extends AppCompatActivity
                 adapter.removeFriends(0);
                 break;
             case R.id.test_remove_at:
-                showDeleterItemDialog();
+                showItemAcitonDialog(R.id.test_remove_at);
+                break;
+            case R.id.agenda_add:
+                showItemAcitonDialog(R.id.agenda_add);
+                break;
+            case R.id.agenda_remove:
+                showItemAcitonDialog(R.id.agenda_remove);
                 break;
             default:
                 break;
@@ -154,7 +160,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-            if (mRecyclerAdapter != null) {
+            if (mFriendsRecyclerAdapter != null) {
 
             } else {
                 Log.e(TAG, "onNavigationItemSelected: adapter is null");
@@ -224,34 +230,69 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void showDeleterItemDialog() {
+    public void showItemAcitonDialog(int itemId) {
 
         View input = getLayoutInflater().inflate(R.layout.number_input_layout, null);
         final EditText etInput = (EditText) input.findViewById(R.id.input_number);
         //final int[] position = {0};
         //两个OnClickListener好像可以合并的样子
-        new AlertDialog.Builder(this)
+       AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setIcon(R.mipmap.ic_launcher)
-                .setTitle("请输入要删除的位置")
+                .setTitle("请输入位置")
                 .setView(input)
-                .setPositiveButton("删除",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int position = Integer.parseInt(etInput.getText().toString());
-                                adapter.removeFriends(position);
-                            }
-                        })
                 .setNegativeButton("取消",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
-                        })
-                .create()
-                .show();
+                        });
 
+        switch (itemId){
+            case R.id.test_add:
+                builder.setPositiveButton("添加",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int position = Integer.parseInt(etInput.getText().toString());
+                                adapter.addFriends(new friendsDatum("text title 1", "test content 1", 0, 0),position);
+                            }
+                        });
+                break;
+            case R.id.test_remove_at:
+                builder.setPositiveButton("删除",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            int position = Integer.parseInt(etInput.getText().toString());
+                            adapter.removeFriends(position);
+                        }
+                    });
+                break;
+            case R.id.agenda_add:
+                builder.setPositiveButton("添加",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int position = Integer.parseInt(etInput.getText().toString());
+                                adapter.addAgenda(position);
+                            }
+                        });
+                break;
+            case R.id.agenda_remove:
+                builder.setPositiveButton("删除",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int position = Integer.parseInt(etInput.getText().toString());
+                                adapter.removeAgenda(position);
+                            }
+                        });
+                break;
+            default: break;
+        }
+
+        builder.create().show();
 
     }
 

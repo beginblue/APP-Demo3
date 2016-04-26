@@ -11,27 +11,19 @@ import layout.agenda;
 import layout.fragmentFriends;
 
 /**
+ * ViewPager's Adapter
  * Created by getbl on 2016/4/18.
  */
 class fragmentPagerAdapter extends FragmentPagerAdapter {
     static fragmentFriends friends;
     static agenda mAgenda;
-    FragmentManager fm ;
+    FragmentManager fm;
 
     public fragmentPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.fm=fm;
+        this.fm = fm;
         friends = fragmentFriends.newInstance();
-        mAgenda = agenda.newInstance("Fra", "");
-    }
-
-
-    @Override
-    public int getItemPosition(Object object) {
-
-        //TODO:好像自定义这里就可以更新了?
-        //return POSITION_NONE;
-        return super.getItemPosition(object);
+        mAgenda = agenda.newInstance();
     }
 
     @Override
@@ -45,8 +37,9 @@ class fragmentPagerAdapter extends FragmentPagerAdapter {
     /**
      * 网上找来的方法1
      * http://blog.csdn.net/z13759561330/article/details/40737381
+     *
      * @param container container
-     * @param position position
+     * @param position  position
      * @return
      */
     @Override
@@ -73,19 +66,29 @@ class fragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
 
-    public void addFriends(friendsDatum datum, int position){
-        friends.getAdapter().add(datum,position);
+    public void addFriends(friendsDatum datum, int position) {
+        friends.getAdapter().add(datum, position);
         setFragments(friends);
     }
 
-    public void addFriends(friendsDatum datum){
+    public void addFriends(friendsDatum datum) {
         friends.getAdapter().add(datum);
         setFragments(friends);
     }
 
-    public void removeFriends(int position){
+    public void removeFriends(int position) {
         friends.getAdapter().remove(position);
         setFragments(friends);
+    }
+
+    public void addAgenda(int position) {
+        mAgenda.getAdapter().addItem(position);
+        setFragments(mAgenda);
+    }
+
+    public void removeAgenda(int position) {
+        mAgenda.getAdapter().removeItem(position);
+        setFragments(mAgenda);
     }
 
 
@@ -93,36 +96,25 @@ class fragmentPagerAdapter extends FragmentPagerAdapter {
      * 更新fragment
      * 原帖http://blog.sina.com.cn/s/blog_783ede03010173b4.html
      * 改进 -- 只要隐藏在再显示就可以了
+     *
      * @param fragment 需要更新的fragment
      */
     public void setFragments(Fragment fragment) {
         FragmentTransaction ft = fm.beginTransaction();
 
-        if(fragment instanceof fragmentFriends){
+        if (fragment instanceof fragmentFriends || fragment instanceof agenda) {
             ft.hide(fragment);
             ft.show(fragment);
         }
+
         /**
          * fragment在其他Activity返回时失去状态了
          * 用CommitAllowingStateLoss兼容
          */
         ft.commitAllowingStateLoss();
-        //ft.commit();
-        //ft=null;
-        //fm.executePendingTransactions();
         notifyDataSetChanged();
 
-//        if(this.fragments != null){
-//            FragmentTransaction ft = fm.beginTransaction();
-//            for(Fragment f:this.fragments){
-//                ft.remove(f);
-//            }
-//            ft.commit();
-//            ft=null;
-//            fm.executePendingTransactions();
-//        }
-//        this.fragments = fragments;
-//        notifyDataSetChanged();
+
     }
 
     public Fragment getFragment(int position) {

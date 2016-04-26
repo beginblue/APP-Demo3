@@ -19,5 +19,13 @@
           android:orderInCategory="100"
           android:title="Remove a specific one"
           app:showAsAction="never"/>
+    <item android:id="@+id/agenda_add"
+          android:orderInCategory="20"
+          android:title="Agenda-add an item"
+          app:showAsAction="never"/>
+    <item android:id="@+id/agenda_remove"
+          android:orderInCategory="30"
+          android:title="Agenda-remove an item"
+          app:showAsAction="never"/>
 
 </menu>
