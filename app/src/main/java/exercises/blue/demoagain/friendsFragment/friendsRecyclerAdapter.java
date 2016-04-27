@@ -1,4 +1,4 @@
-package exercises.blue.demoagain;
+package exercises.blue.demoagain.friendsFragment;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +8,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import exercises.blue.userdata.friendsDataSet;
-import exercises.blue.userdata.friendsDatum;
+import exercises.blue.demoagain.R;
+import exercises.blue.demoagain.userdata.friendsDataSet;
+import exercises.blue.demoagain.userdata.friendsDatum;
 
 /**
  * Created by getbl on 2016/4/22.

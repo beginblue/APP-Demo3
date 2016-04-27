@@ -3,6 +3,7 @@
 <!--TODO: 还是参考一下知乎以及微博的单个条目 -->
 <!--山寨知乎中。。。-->
 <LinearLayout
+    android:elevation="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

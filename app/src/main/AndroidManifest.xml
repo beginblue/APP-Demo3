@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".welcomeActivity">
+        <activity android:name=".singleActivities.welcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -19,13 +19,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActvity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".dianming">
+        <activity android:name=".singleActivities.dianming">
         </activity>
-        <activity android:name=".publishActivity">
+        <activity android:name=".singleActivities.publishActivity">
         </activity>
     </application>
 

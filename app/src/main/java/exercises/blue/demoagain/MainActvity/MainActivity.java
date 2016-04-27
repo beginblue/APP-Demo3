@@ -1,4 +1,4 @@
-package exercises.blue.demoagain;
+package exercises.blue.demoagain.MainActvity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,10 +24,13 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
-import exercises.blue.userdata.friendsDataSet;
-import exercises.blue.userdata.friendsDatum;
-import layout.agenda;
-import layout.fragmentFriends;
+import exercises.blue.demoagain.R;
+import exercises.blue.demoagain.singleActivities.dianming;
+import exercises.blue.demoagain.friendsFragment.friendsRecyclerAdapter;
+import exercises.blue.demoagain.singleActivities.publishActivity;
+import exercises.blue.demoagain.userdata.friendsDatum;
+import exercises.blue.demoagain.agendaFragement.agenda;
+import exercises.blue.demoagain.friendsFragment.fragmentFriends;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, agenda.OnFragmentInteractionListener {

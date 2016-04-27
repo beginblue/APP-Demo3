@@ -1,4 +1,4 @@
-package layout;
+package exercises.blue.demoagain.friendsFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import exercises.blue.demoagain.fDividerItemDecoration;
 import exercises.blue.demoagain.R;
-import exercises.blue.demoagain.friendsRecyclerAdapter;
 
 /**
  * Created by getbl on 2016/4/18.

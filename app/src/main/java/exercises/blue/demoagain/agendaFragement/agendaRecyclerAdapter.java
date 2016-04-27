@@ -1,16 +1,15 @@
-package exercises.blue.demoagain;
+package exercises.blue.demoagain.agendaFragement;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import exercises.blue.demoagain.R;
 
 /**
  * agenda adapter
@@ -23,7 +22,7 @@ public class agendaRecyclerAdapter extends RecyclerView.Adapter<agendaRecyclerAd
     private List<Integer> mIntegerList = new ArrayList<>();
 
     public agendaRecyclerAdapter(){
-        for (int a = 0; a<25;a++){
+        for (int a = 0; a<13;a++){
             mIntegerList.add(a);
         }
     }

@@ -1,6 +1,4 @@
-package exercises.blue.userdata;
-
-import android.support.annotation.Nullable;
+package exercises.blue.demoagain.userdata;
 
 /**
  * Created by getbl on 2016/4/20.

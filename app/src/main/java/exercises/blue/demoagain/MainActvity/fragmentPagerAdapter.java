@@ -1,4 +1,4 @@
-package exercises.blue.demoagain;
+package exercises.blue.demoagain.MainActvity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 
-import exercises.blue.userdata.friendsDatum;
-import layout.agenda;
-import layout.fragmentFriends;
+import exercises.blue.demoagain.userdata.friendsDatum;
+import exercises.blue.demoagain.agendaFragement.agenda;
+import exercises.blue.demoagain.friendsFragment.fragmentFriends;
 
 /**
  * ViewPager's Adapter

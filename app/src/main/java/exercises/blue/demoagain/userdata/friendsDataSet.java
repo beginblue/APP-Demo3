@@ -1,4 +1,4 @@
-package exercises.blue.userdata;
+package exercises.blue.demoagain.userdata;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package exercises.blue.demoagain;
+package exercises.blue.demoagain.friendsFragment;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;

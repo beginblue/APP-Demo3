@@ -1,4 +1,4 @@
-package layout;
+package exercises.blue.demoagain.agendaFragement;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import exercises.blue.demoagain.R;
-import exercises.blue.demoagain.aDividerItemDecoration;
-import exercises.blue.demoagain.agendaRecyclerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

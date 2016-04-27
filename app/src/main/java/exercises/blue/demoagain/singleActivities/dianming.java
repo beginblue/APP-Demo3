@@ -1,10 +1,12 @@
-package exercises.blue.demoagain;
+package exercises.blue.demoagain.singleActivities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
+
+import exercises.blue.demoagain.R;
 
 public class dianming extends AppCompatActivity {
     private WebView webView;
