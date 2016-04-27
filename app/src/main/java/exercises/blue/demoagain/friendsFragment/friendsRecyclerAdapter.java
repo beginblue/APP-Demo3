@@ -33,7 +33,7 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         friendsDatum datum = mData.get(position);
         holder.title.setText(datum.getTitle());
         holder.content.setText(datum.getContent());
-        holder.isHot.setText((datum.getCategory()==1)?"热门":" ");
+        holder.isHot.setText((datum.getCategory() == 1) ? "热门" : " ");
     }
 
     @Override
@@ -41,21 +41,25 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         return mData.size();
     }
 
-    public void add(friendsDatum datum){
+    public void add(friendsDatum datum) {
         notifyItemInserted(mData.size());
         mData.add(datum);
     }
 
-    public void add(friendsDatum datum, int position){
+    public void add(friendsDatum datum, int position) {
         notifyItemInserted(position);
-        if(position>mData.size()) mData.add(datum);
-        if(position<0) position=0;
-        mData.add(position,datum);
+        if (position > mData.size()) {
+            mData.add(datum);
+            return;
+        }
+        if (position < 0) position = 0;
+        mData.add(position, datum);
     }
 
-    public void remove(int position){
-        if(position>=mData.size()) position = mData.size()-1;
-        if(position<0) position=0;
+    public void remove(int position) {
+        if (mData.size() == 0) return;
+        if (position >= mData.size()) return;
+        if (position < 0) position = 0;
 
         notifyItemRemoved(position);
 

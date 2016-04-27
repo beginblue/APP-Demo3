@@ -35,7 +35,7 @@ public class agenda extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
+
     public static agenda newInstance() {
         agenda fragment = new agenda();
         Bundle args = new Bundle();
@@ -54,7 +54,7 @@ public class agenda extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_agenda, container, false);
         RecyclerView rec  = (RecyclerView) view.findViewById(R.id.agenda_list);
-        rec.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
+        rec.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
         rec.setAdapter(mAdapter);
         rec.setItemAnimator(new DefaultItemAnimator());
         rec.addItemDecoration(new aDividerItemDecoration());
