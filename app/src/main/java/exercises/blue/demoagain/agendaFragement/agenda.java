@@ -10,6 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import exercises.blue.demoagain.R;
 
@@ -24,7 +25,18 @@ import exercises.blue.demoagain.R;
 public class agenda extends Fragment {
 
 
-    agendaRecyclerAdapter mAdapter = new agendaRecyclerAdapter();
+    agendaRecyclerAdapter mAdapter = new agendaRecyclerAdapter(new agendaRecyclerAdapter.myOnItemClickListener() {
+        @Override
+        public void onItemClick(View v, int position) {
+            Toast.makeText(getContext(), "Hello world"+position, Toast.LENGTH_SHORT).show();
+        }
+    },
+            new agendaRecyclerAdapter.myOnItemLongClickListener() {
+                @Override
+                public void onItemLongClick(View v, int position) {
+                    Toast.makeText(getContext(), "Hello world Long"+position, Toast.LENGTH_SHORT).show();
+                }
+            });
     private OnFragmentInteractionListener mListener;
 
     public agendaRecyclerAdapter getAdapter (){
