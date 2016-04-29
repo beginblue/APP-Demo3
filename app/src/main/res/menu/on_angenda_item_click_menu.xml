@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group>
+    <item
+        android:id="@+id/agenda_menu_add"
+        android:title="add one here"
+        />
+</group>
+    <item
+        android:title="delete">
+        <menu>
+            <item android:title="delete this one"
+                android:id="@+id/agenda_menu_del"/>
+        </menu>
+    </item>
+</menu>

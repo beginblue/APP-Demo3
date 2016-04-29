@@ -2,6 +2,7 @@ package exercises.blue.demoagain.agendaFragement;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import exercises.blue.demoagain.R;
  * Created by getbl on 2016/4/25.
  */
 public class agendaRecyclerAdapter extends RecyclerView.Adapter<agendaRecyclerAdapter.agendaHolder> {
+    private static final String TAG = "adapterAgenda";
 
     //private int[] pool = new int[25];
 
@@ -62,7 +64,11 @@ public class agendaRecyclerAdapter extends RecyclerView.Adapter<agendaRecyclerAd
         if (size == 0) return;
         if (position >= size) return;
         if (position < 0) position = 0;
-        mStringList.remove(position);
+        try {
+            mStringList.remove(position);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void addItem(int position) {
@@ -87,12 +93,16 @@ public class agendaRecyclerAdapter extends RecyclerView.Adapter<agendaRecyclerAd
 
     @Override
     public void onBindViewHolder(agendaHolder holder, int position) {
-        holder.title.setText(mStringList.get(position));
+        try {
+            holder.title.setText(mStringList.get(position));
+        }catch (Exception e){
+            Log.w(TAG, "onBindViewHolder:"+e.getLocalizedMessage() );
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 25;
+        return mStringList.size();
     }
 
     public class agendaHolder extends RecyclerView.ViewHolder

@@ -5,9 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -25,21 +29,42 @@ import exercises.blue.demoagain.R;
 public class agenda extends Fragment {
 
 
+    private static final String TAG = "agenda";
     agendaRecyclerAdapter mAdapter = new agendaRecyclerAdapter(new agendaRecyclerAdapter.myOnItemClickListener() {
         @Override
         public void onItemClick(View v, int position) {
-            Toast.makeText(getContext(), "Hello world"+position, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Hello world" + position, Toast.LENGTH_SHORT).show();
         }
-    },
-            new agendaRecyclerAdapter.myOnItemLongClickListener() {
+    }, new longClickAdapter());
+
+    public class longClickAdapter implements agendaRecyclerAdapter.myOnItemLongClickListener {
+
+        @Override
+        public void onItemLongClick(View v, final int position) {
+            PopupMenu popupMenu = new PopupMenu(getContext(), v);
+            popupMenu.inflate(R.menu.on_angenda_item_click_menu);
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
-                public void onItemLongClick(View v, int position) {
-                    Toast.makeText(getContext(), "Hello world Long"+position, Toast.LENGTH_SHORT).show();
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.agenda_menu_add:
+                            mAdapter.addItem(position);
+                            return true;
+                        case R.id.agenda_menu_del:
+                            mAdapter.removeItem(position);
+                            return true;
+                        default:
+                            return true;
+                    }
                 }
             });
+            popupMenu.show();
+        }
+    }
+
     private OnFragmentInteractionListener mListener;
 
-    public agendaRecyclerAdapter getAdapter (){
+    public agendaRecyclerAdapter getAdapter() {
         return mAdapter;
     }
 
@@ -65,14 +90,13 @@ public class agenda extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_agenda, container, false);
-        RecyclerView rec  = (RecyclerView) view.findViewById(R.id.agenda_list);
-        rec.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
+        RecyclerView rec = (RecyclerView) view.findViewById(R.id.agenda_list);
+        rec.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         rec.setAdapter(mAdapter);
         rec.setItemAnimator(new DefaultItemAnimator());
         rec.addItemDecoration(new aDividerItemDecoration());
         return view;
     }
-
 
 
     @Override
@@ -97,7 +121,7 @@ public class agenda extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
