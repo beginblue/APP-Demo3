@@ -1,6 +1,5 @@
 package exercises.blue.demoagain.agendaFragement;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +7,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import exercises.blue.demoagain.R;
+import exercises.blue.demoagain.interfaces.myOnItemClickListener;
+import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,14 +29,14 @@ public class agenda extends Fragment {
 
 
     private static final String TAG = "agenda";
-    agendaRecyclerAdapter mAdapter = new agendaRecyclerAdapter(new agendaRecyclerAdapter.myOnItemClickListener() {
+    agendaRecyclerAdapter mAdapter = new agendaRecyclerAdapter(new myOnItemClickListener() {
         @Override
         public void onItemClick(View v, int position) {
             Toast.makeText(getContext(), "Hello world" + position, Toast.LENGTH_SHORT).show();
         }
     }, new longClickAdapter());
 
-    public class longClickAdapter implements agendaRecyclerAdapter.myOnItemLongClickListener {
+    public class longClickAdapter implements myOnItemLongClickListener {
 
         @Override
         public void onItemLongClick(View v, final int position) {
@@ -52,7 +51,7 @@ public class agenda extends Fragment {
                             return true;
                         case R.id.agenda_menu_del:
                             mAdapter.removeItem(position);
-                            return true;
+                             return true;
                         default:
                             return true;
                     }
@@ -62,7 +61,6 @@ public class agenda extends Fragment {
         }
     }
 
-    private OnFragmentInteractionListener mListener;
 
     public agendaRecyclerAdapter getAdapter() {
         return mAdapter;
@@ -99,22 +97,18 @@ public class agenda extends Fragment {
     }
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+
 
     /**
      * This interface must be implemented by activities that contain this

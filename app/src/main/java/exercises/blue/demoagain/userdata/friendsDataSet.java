@@ -1,8 +1,15 @@
 package exercises.blue.demoagain.userdata;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
 
 /**
+ * friends的数据源
+ * TODO:从网上下点数据来放到这里
+ * TODO:初始值为0 在启动APP或者下拉刷新的时候加载数据
+ *
  * Created by getbl on 2016/4/20.
  */
 public class friendsDataSet {
@@ -18,18 +25,13 @@ public class friendsDataSet {
         return instance;
     }
 
-//    public friendsDatum[] getList() {
-//        return list.toArray(new friendsDatum[]{});
-//    }
+
 
     public ArrayList<friendsDatum> getList(){
         return instance.list;
     }
 
-//    public void removeItem(int position){
-//        this.list.remove(position);
-//
-//    }
+
 
     public void setList(ArrayList<friendsDatum> list) {
         this.list = list;

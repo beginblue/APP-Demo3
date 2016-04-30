@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exercises.blue.demoagain.R;
+import exercises.blue.demoagain.interfaces.myOnItemClickListener;
+import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
 
 /**
  * agenda adapter
@@ -27,13 +29,10 @@ public class agendaRecyclerAdapter extends RecyclerView.Adapter<agendaRecyclerAd
 
     private List<String> mStringList = new ArrayList<>();
 
-    public interface myOnItemClickListener {
-        void onItemClick(View v, int position);
-    }
 
-    public interface myOnItemLongClickListener {
-        void onItemLongClick(View v, int position);
-    }
+
+
+
 
     private myOnItemClickListener mOnItemClickListener;
     private myOnItemLongClickListener mOnItemLongClickListener;

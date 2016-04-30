@@ -2,6 +2,7 @@ package exercises.blue.demoagain.MainActvity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,10 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import exercises.blue.demoagain.R;
@@ -42,6 +47,8 @@ public class MainActivity extends AppCompatActivity
     friendsRecyclerAdapter mFriendsRecyclerAdapter;
     fragmentFriends mFragmentFriends;
     agenda mAgenda;
+
+
 
 
     @Override
@@ -92,6 +99,8 @@ public class MainActivity extends AppCompatActivity
         mFragmentFriends = (fragmentFriends) adapter.getFragment(0);
         mAgenda = (agenda) adapter.getFragment(1);
         mFriendsRecyclerAdapter = mFragmentFriends.getAdapter();
+
+
     }
 
     private void showMyDialog() {

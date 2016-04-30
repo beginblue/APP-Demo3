@@ -4,11 +4,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import exercises.blue.demoagain.R;
+import exercises.blue.demoagain.interfaces.myOnItemClickListener;
+import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
 import exercises.blue.demoagain.userdata.friendsDataSet;
 import exercises.blue.demoagain.userdata.friendsDatum;
 
@@ -17,6 +21,15 @@ import exercises.blue.demoagain.userdata.friendsDatum;
  * Rewrite the adapter
  */
 public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecyclerAdapter.recyclerViewHolder> {
+
+    myOnItemClickListener mClickListener;
+    myOnItemLongClickListener mLongClickListener;
+
+
+    public friendsRecyclerAdapter(myOnItemClickListener clickListener, myOnItemLongClickListener longClickListener) {
+        mClickListener = clickListener;
+        mLongClickListener = longClickListener;
+    }
 
     public ArrayList<friendsDatum> mData = friendsDataSet.newInstance().getList();
 
@@ -70,7 +83,8 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
     /**
      * view holder
      */
-    public class recyclerViewHolder extends RecyclerView.ViewHolder {
+    public class recyclerViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, View.OnLongClickListener {
 
         TextView title;
         TextView content;
@@ -83,10 +97,25 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
             title = (TextView) view.findViewById(R.id.item_title);
             content = (TextView) view.findViewById(R.id.item_content);
             isHot = (TextView) view.findViewById(R.id.item_category);
+            view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
             //goodCount = (TextView) view.findViewById(R.id.item_good);
             //icon = (ImageView) view.findViewById(R.id.item_icon);
             //view.setLayoutParams();
         }
+
+        @Override
+        public void onClick(View v) {
+            if (mClickListener != null) mClickListener.onItemClick(v, this.getLayoutPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (mLongClickListener != null)
+                mLongClickListener.onItemLongClick(v, getLayoutPosition());
+            return true;
+        }
+
 
     }
 }
