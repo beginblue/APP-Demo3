@@ -27,5 +27,8 @@
           android:orderInCategory="30"
           android:title="Agenda-remove an item"
           app:showAsAction="never"/>
+    <item android:id="@+id/refresh_friends"
+          android:orderInCategory="30"
+          android:title="refresh"/>
 
 </menu>

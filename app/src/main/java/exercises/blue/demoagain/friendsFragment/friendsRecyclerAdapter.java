@@ -1,6 +1,8 @@
 package exercises.blue.demoagain.friendsFragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +10,11 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.interfaces.myOnItemClickListener;
@@ -22,23 +28,27 @@ import exercises.blue.demoagain.userdata.friendsDatum;
  */
 public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecyclerAdapter.recyclerViewHolder> {
 
+    private static final String TAG = "friendsRecyclerAdapter";
     myOnItemClickListener mClickListener;
     myOnItemLongClickListener mLongClickListener;
 
 
-    public friendsRecyclerAdapter(myOnItemClickListener clickListener, myOnItemLongClickListener longClickListener) {
+    public friendsRecyclerAdapter(myOnItemClickListener clickListener,
+                                  myOnItemLongClickListener longClickListener/*,
+                                  fragmentFriends master*/) {
         mClickListener = clickListener;
         mLongClickListener = longClickListener;
     }
 
+    //TODO:换成操纵DataSet
     public ArrayList<friendsDatum> mData = friendsDataSet.newInstance().getList();
+    public friendsDataSet mDataSet = friendsDataSet.newInstance();
 
     @Override
     public recyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem, parent, false);
-        recyclerViewHolder holder = new recyclerViewHolder(view);
 
-        return holder;
+        return new recyclerViewHolder(view);
     }
 
     @Override
@@ -51,13 +61,17 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
 
     @Override
     public int getItemCount() {
+        Log.e(TAG, "getItemCount: "+ mData.size() );
         return mData.size();
+
     }
 
     public void add(friendsDatum datum) {
         notifyItemInserted(mData.size());
         mData.add(datum);
     }
+
+
 
     public void add(friendsDatum datum, int position) {
         notifyItemInserted(position);
@@ -67,6 +81,11 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         }
         if (position < 0) position = 0;
         mData.add(position, datum);
+    }
+
+    public void clear() {
+        notifyItemRangeRemoved(0, mData.size());
+        mData.clear();
     }
 
     public void remove(int position) {
@@ -79,6 +98,17 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         mData.remove(position);
     }
 
+    public void addList(List<friendsDatum> list) {
+//        notifyDataSetChanged();
+//        mDataSet.setList(list);
+        /**
+         * 少年要开始做死了
+         * 然而并没有什么特殊的效果
+         */
+        for(friendsDatum datum : list ){
+            add(datum,1);
+        }
+    }
 
     /**
      * view holder
@@ -86,17 +116,21 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
     public class recyclerViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
+        ;
         TextView title;
         TextView content;
         TextView isHot;
         //TextView goodCount;
         //ImageView icon;
+        //SwipeRefreshLayout mSwipeRefreshLayout;
 
         public recyclerViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.item_title);
             content = (TextView) view.findViewById(R.id.item_content);
             isHot = (TextView) view.findViewById(R.id.item_category);
+            //mSwipeRefreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.refresh);
+
             view.setOnClickListener(this);
             view.setOnLongClickListener(this);
             //goodCount = (TextView) view.findViewById(R.id.item_good);

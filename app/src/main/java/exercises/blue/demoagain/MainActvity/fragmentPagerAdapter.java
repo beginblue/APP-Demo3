@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import exercises.blue.demoagain.userdata.friendsDatum;
 import exercises.blue.demoagain.agendaFragement.agenda;
 import exercises.blue.demoagain.friendsFragment.fragmentFriends;
@@ -116,6 +118,20 @@ class fragmentPagerAdapter extends FragmentPagerAdapter {
 
 
     }
+
+//    public void refreshFriends(){
+//        ArrayList<friendsDatum> data = new ArrayList<>();
+//        data.add(new friendsDatum("33","22"));
+//        data.add(new friendsDatum("33","22"));
+//        data.add(new friendsDatum("33","22"));
+//        friends.getAdapter().addList(data);
+//        setFragments(friends);
+//    }
+
+    public void clear(){
+        friends.getAdapter().clear();
+    }
+
 
     public Fragment getFragment(int position) {
         switch (position) {

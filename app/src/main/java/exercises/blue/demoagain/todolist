@@ -1,0 +1,11 @@
+TODO:请求数据和刷新UI  before  May 15th
+
+ERRORS:
+    1清空列表会崩 (已经解决 notifyItemRangeRemoved(0, mData.size());
+    2重复添加多个项目 (已经解决 智商问题
+    3刷新列表  保存当前已经获取到的数据的页面 (已经解决 还是智商问题
+    4封装mData
+    5下拉刷新的动画问题
+    6 OnClickListener  -- 打开网页
+    7 收藏夹
+    8 OnItemLongClickListener -- 收藏

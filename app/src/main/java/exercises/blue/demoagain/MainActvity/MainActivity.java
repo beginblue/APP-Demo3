@@ -2,40 +2,33 @@ package exercises.blue.demoagain.MainActvity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.zxing.integration.android.IntentIntegrator;
-
 import exercises.blue.demoagain.R;
-import exercises.blue.demoagain.singleActivities.dianming;
-import exercises.blue.demoagain.friendsFragment.friendsRecyclerAdapter;
-import exercises.blue.demoagain.singleActivities.publishActivity;
-import exercises.blue.demoagain.userdata.friendsDatum;
 import exercises.blue.demoagain.agendaFragement.agenda;
 import exercises.blue.demoagain.friendsFragment.fragmentFriends;
+import exercises.blue.demoagain.friendsFragment.friendsRecyclerAdapter;
+import exercises.blue.demoagain.singleActivities.dianming;
+import exercises.blue.demoagain.singleActivities.publishActivity;
+import exercises.blue.demoagain.userdata.friendsDatum;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, agenda.OnFragmentInteractionListener {
@@ -45,8 +38,8 @@ public class MainActivity extends AppCompatActivity
     //friendsDataSet set = friendsDataSet.newInstance();
     fragmentPagerAdapter adapter;
     friendsRecyclerAdapter mFriendsRecyclerAdapter;
-    fragmentFriends mFragmentFriends;
-    agenda mAgenda;
+//    fragmentFriends mFragmentFriends;
+//    agenda mAgenda;
 
 
 
@@ -93,12 +86,21 @@ public class MainActivity extends AppCompatActivity
             adapter = new fragmentPagerAdapter(manager);
             pager.setAdapter(adapter);
         }
+
+
+        /**
+         * connect the TabView and the ViewPager
+         */
         assert tabs != null;
         tabs.setupWithViewPager(pager);
 
-        mFragmentFriends = (fragmentFriends) adapter.getFragment(0);
-        mAgenda = (agenda) adapter.getFragment(1);
-        mFriendsRecyclerAdapter = mFragmentFriends.getAdapter();
+
+        /**
+         * useless .
+         */
+//        mFragmentFriends = (fragmentFriends) adapter.getFragment(0);
+//        mAgenda = (agenda) adapter.getFragment(1);
+//        mFriendsRecyclerAdapter = mFragmentFriends.getAdapter();
 
 
     }
@@ -156,6 +158,11 @@ public class MainActivity extends AppCompatActivity
             case R.id.agenda_remove:
                 showItemAcitonDialog(R.id.agenda_remove);
                 break;
+            case R.id.refresh_friends:
+                //adapter.refreshFriends();
+                adapter.clear();
+                break;
+
             default:
                 break;
 
@@ -190,8 +197,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_share) {
             //Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
-            IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
-            intentIntegrator.initiateScan();
+//            IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
+//            intentIntegrator.initiateScan();
         } else if (id == R.id.nav_send) {
 
         }

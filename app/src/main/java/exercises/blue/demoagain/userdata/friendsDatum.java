@@ -55,4 +55,11 @@ public class friendsDatum {
         this.category=category;
         this.goodCount=goodCount;
     }
+
+    public friendsDatum(String title,String content){
+        this.title=title;
+        this.content=content;
+        this.category=0;
+        this.goodCount=233;
+    }
 }
