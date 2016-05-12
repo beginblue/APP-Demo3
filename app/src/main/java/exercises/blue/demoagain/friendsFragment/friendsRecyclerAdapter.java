@@ -1,17 +1,11 @@
 package exercises.blue.demoagain.friendsFragment;
 
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +50,7 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         friendsDatum datum = mData.get(position);
         holder.title.setText(datum.getTitle());
         holder.content.setText(datum.getContent());
-        holder.isHot.setText((datum.getCategory() == 1) ? "热门" : " ");
+        holder.author.setText(datum.getAuthor());
     }
 
     @Override
@@ -110,6 +104,9 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         }
     }
 
+    public String getItemString(int position){
+        return mDataSet.getList().get(position).getContent();
+    }
     /**
      * view holder
      */
@@ -119,7 +116,7 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         ;
         TextView title;
         TextView content;
-        TextView isHot;
+        TextView author;
         //TextView goodCount;
         //ImageView icon;
         //SwipeRefreshLayout mSwipeRefreshLayout;
@@ -128,7 +125,7 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
             super(view);
             title = (TextView) view.findViewById(R.id.item_title);
             content = (TextView) view.findViewById(R.id.item_content);
-            isHot = (TextView) view.findViewById(R.id.item_category);
+            author = (TextView) view.findViewById(R.id.item_category);
             //mSwipeRefreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.refresh);
 
             view.setOnClickListener(this);

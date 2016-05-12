@@ -35,24 +35,24 @@
             android:text="热门回答"
             android:textSize="15sp"/>
 
-        <RelativeLayout
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="5dp"
-            android:background="#e9f3f8"
-            >
+        <!--<RelativeLayout-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:background="#e9f3f8"-->
+            <!--&gt;-->
 
-            <TextView
-                android:id="@+id/item_good"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="524"
-                android:textAlignment="center"/>
-        </RelativeLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/item_good"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="524"-->
+                <!--android:textAlignment="center"/>-->
+        <!--</RelativeLayout>-->
     </RelativeLayout>
 
     <TextView

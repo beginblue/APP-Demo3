@@ -24,11 +24,9 @@ import android.widget.Toast;
 
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.agendaFragement.agenda;
-import exercises.blue.demoagain.friendsFragment.fragmentFriends;
 import exercises.blue.demoagain.friendsFragment.friendsRecyclerAdapter;
 import exercises.blue.demoagain.singleActivities.dianming;
 import exercises.blue.demoagain.singleActivities.publishActivity;
-import exercises.blue.demoagain.userdata.friendsDatum;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, agenda.OnFragmentInteractionListener {
@@ -139,24 +137,22 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.test_add:
-                showItemAcitonDialog(R.id.test_add);
+                showItemActonDialog(R.id.test_add);
                 break;
             case R.id.test_add_more:
-                adapter.addFriends(new friendsDatum("text title 1", "test content 1", 0, 0));
-                adapter.addFriends(new friendsDatum("text title 2", "test content 2", 1, 0));
-                adapter.addFriends(new friendsDatum("text title 3", "test content 3", 0, 0));
+
                 break;
             case R.id.test_remove_at_zero:
                 adapter.removeFriends(0);
                 break;
             case R.id.test_remove_at:
-                showItemAcitonDialog(R.id.test_remove_at);
+                showItemActonDialog(R.id.test_remove_at);
                 break;
             case R.id.agenda_add:
-                showItemAcitonDialog(R.id.agenda_add);
+                showItemActonDialog(R.id.agenda_add);
                 break;
             case R.id.agenda_remove:
-                showItemAcitonDialog(R.id.agenda_remove);
+                showItemActonDialog(R.id.agenda_remove);
                 break;
             case R.id.refresh_friends:
                 //adapter.refreshFriends();
@@ -232,24 +228,13 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 444 || resultCode == 0) return;
         if (requestCode == 213) {
-            Bundle receivedData =data.getBundleExtra("user");
-            String title = receivedData.getString("title");
-            String content = receivedData.getString("content");
-            int category = receivedData.getInt("category");
-            Log.e(TAG, "onActivityResult:"+title);
-            Log.e(TAG, "onActivityResult:"+content);
-            Log.e(TAG, "onActivityResult:"+category);
-            try{
-            adapter.addFriends(new friendsDatum(title,content,category,0));}
-            catch (Exception e){
-                Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(MainActivity.this, "废弃,别想了", Toast.LENGTH_SHORT).show();
         }
 
     }
 
 
-    public void showItemAcitonDialog(int itemId) {
+    public void showItemActonDialog(int itemId) {
 
         View input = getLayoutInflater().inflate(R.layout.number_input_layout, null);
         final EditText etInput = (EditText) input.findViewById(R.id.input_number);
@@ -269,14 +254,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (itemId){
             case R.id.test_add:
-                builder.setPositiveButton("添加",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int position = Integer.parseInt(etInput.getText().toString());
-                                adapter.addFriends(new friendsDatum("text title 1", "test content 1", 0, 0),position);
-                            }
-                        });
+                builder.setTitle("添加功能已经废弃");
                 break;
             case R.id.test_remove_at:
                 builder.setPositiveButton("删除",

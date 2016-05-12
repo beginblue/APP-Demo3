@@ -7,8 +7,10 @@ public class friendsDatum {
 
     private String title;
     private String content;
-    private int category;
-    private int goodCount;//点赞数
+    private int category;//废弃
+    private int goodCount;//点赞数//废弃
+    private String author;
+
 
     public String getTitle() {
         return title;
@@ -49,17 +51,27 @@ public class friendsDatum {
         category=0;
     }
 
-    public friendsDatum(String title, String content, int category, int goodCount){
-        this.title=title;
-        this.content=content;
-        this.category=category;
-        this.goodCount=goodCount;
-    }
-
-    public friendsDatum(String title,String content){
+    public friendsDatum(String title, String content, String author, int goodCount){
         this.title=title;
         this.content=content;
         this.category=0;
+        this.author=author;
+        this.goodCount= 233;
+    }
+
+    public friendsDatum(String title,String content,String author){
+        this.title=title;
+        this.content=content;
+        this.author = author;
+        this.category=0;
         this.goodCount=233;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

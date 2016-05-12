@@ -1,5 +1,7 @@
 package exercises.blue.demoagain.friendsFragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -50,7 +52,13 @@ public class fragmentFriends extends Fragment {
     myOnItemClickListener mItemClickListener = new myOnItemClickListener() {
         @Override
         public void onItemClick(View v, int position) {
-            Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
+            String url = adapter.getItemString(position);  //"http://cn.bing.com"; // web address
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+
+            intent.setData(Uri.parse(url));
+
+            startActivity(intent);
         }
     };
 
@@ -119,7 +127,7 @@ public class fragmentFriends extends Fragment {
                  * @param errorListener Error listener, or null to ignore errors.
                  */
                 final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                        "http://gank.io/api/data/Android/10/"+(page),
+                        "http://gank.io/api/data/Android/10/1"+(page),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -131,7 +139,7 @@ public class fragmentFriends extends Fragment {
                                     for (int count = 0; count < jsonArray.length(); count++) {
                                         JSONObject jsonObject = jsonArray.getJSONObject(count);
                                        // Log.i(TAG, "onResponse:" + jsonObject.getString("desc") + ":" + jsonObject.getString("url"));
-                                        fList.add(new friendsDatum(jsonObject.getString("desc"),jsonObject.getString("url")));
+                                        fList.add(new friendsDatum(jsonObject.getString("desc"),jsonObject.getString("url"),jsonObject.getString("who")));
                                        //Log.i(TAG, "onResponse: current size"+ fList.size());
                                     }
                                     //脑残!(╯‵□′)╯︵┻━┻
@@ -145,7 +153,7 @@ public class fragmentFriends extends Fragment {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "onErrorResponse: " + error.getLocalizedMessage());
+                        Log.e(TAG, "onErrorResponse: " + error.getMessage());
                     }
                 });
                 mRequestQueue.add(request);
