@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import exercises.blue.demoagain.interfaces.myOnItemClickListener;
+import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
 import exercises.blue.demoagain.userdata.friendsDatum;
 import exercises.blue.demoagain.agendaFragement.agenda;
 import exercises.blue.demoagain.friendsFragment.fragmentFriends;
@@ -16,82 +18,71 @@ import exercises.blue.demoagain.friendsFragment.fragmentFriends;
  * ViewPager's Adapter
  * Created by getbl on 2016/4/18.
  */
-class fragmentPagerAdapter extends FragmentPagerAdapter {
-    static fragmentFriends friends;
-    static agenda mAgenda;
+class fragmentPagerAdapter extends FragmentPagerAdapter  {
+
+    fragmentFriends mFragmentFriendsAndroid;
+    fragmentFriends mFragmentFriendsiOS;
+    fragmentFriends mFragmentFriendsFront;
     FragmentManager fm;
 
     public fragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         this.fm = fm;
-        friends = fragmentFriends.newInstance();
-        mAgenda = agenda.newInstance();
-    }
+        mFragmentFriendsAndroid = fragmentFriends.newInstance("Android");
+        mFragmentFriendsiOS = fragmentFriends.newInstance("iOS");
+        mFragmentFriendsFront = fragmentFriends.newInstance("前端");
+
+        //friends = fragmentFriends.newInstance();
+       // mAgenda = agenda.newInstance();
+
+}
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 0) return friends;
-        else if (position == 1) return mAgenda;
-        else if (position == 2) return friends;
+        if (position == 0) return mFragmentFriendsAndroid;
+        else if (position == 1) return mFragmentFriendsiOS;
+        else if (position == 2) return mFragmentFriendsFront;
         else return null;
     }
 
     /**
      * 网上找来的方法1
      * http://blog.csdn.net/z13759561330/article/details/40737381
-     *
+     * 然而并没有什么用
      * @param container container
      * @param position  position
      * @return
      */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-
-//        Fragment fragment = (Fragment) super.instantiateItem(container,position);
-//        String tag = fragment.getTag();
-//        //去除了判断是否要更新
-//        //直接更新
-//        if(fragment instanceof fragmentFriends){
-//
-//        FragmentTransaction transaction = fm.beginTransaction();
-//        transaction.remove(fragment);
-//        //网站上的方法中有个储存fragment的数组 这里直接换成了
-//        //创建新的fragment
-//        fragment=fragmentFriends.newInstance();
-//
-//        transaction.add(container.getId(),fragment,tag);
-//        transaction.attach(fragment);
-//        transaction.commit();
-//        }
-//        return fragment;
         return super.instantiateItem(container, position);
     }
 
 
-    public void addFriends(friendsDatum datum, int position) {
-        friends.getAdapter().add(datum, position);
-        setFragments(friends);
-    }
-
-    public void addFriends(friendsDatum datum) {
-        friends.getAdapter().add(datum);
-        setFragments(friends);
-    }
-
-    public void removeFriends(int position) {
-        friends.getAdapter().remove(position);
-        setFragments(friends);
-    }
-
-    public void addAgenda(int position) {
-        mAgenda.getAdapter().addItem(position);
-        setFragments(mAgenda);
-    }
-
-    public void removeAgenda(int position) {
-        mAgenda.getAdapter().removeItem(position);
-        setFragments(mAgenda);
-    }
+//    public void addFriends(friendsDatum datum, int position) {
+//        friends.getAdapter().add(datum, position);
+//        setFragments(friends);
+//    }
+//
+//    public void addFriends(friendsDatum datum) {
+//        friends.getAdapter().add(datum);
+//        setFragments(friends);
+//    }
+//
+//    public void removeFriends(int position) {
+//        friends.getAdapter().remove(position);
+//        setFragments(friends);
+//    }
+//
+//    public void addAgenda(int position) {
+//        mAgenda.getAdapter().addItem(position);
+//        setFragments(mAgenda);
+//    }
+//
+//    public void removeAgenda(int position) {
+//        mAgenda.getAdapter().removeItem(position);
+//        setFragments(mAgenda);
+//    }
 
 
     /**
@@ -124,45 +115,48 @@ class fragmentPagerAdapter extends FragmentPagerAdapter {
 //        data.add(new friendsDatum("33","22"));
 //        data.add(new friendsDatum("33","22"));
 //        data.add(new friendsDatum("33","22"));
-//        friends.getAdapter().addList(data);
+//        friends.getd().addList(data);
 //        setFragments(friends);
 //    }
-
-    public void clear(){
-        friends.getAdapter().clear();
-    }
-
-
-    public Fragment getFragment(int position) {
-        switch (position) {
-            case 0:
-                return friends;
-            case 1:
-                return mAgenda;
-            case 2:
-                return friends;
-            default:
-                return null;
-        }
-    }
 
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "动态";
+                return "Android";
             case 1:
-                return "我的活动";
+                return "iOS";
             case 2:
-                return "活动";
+                return "前端";
             default:
                 return "错误!";
+        }
+    }
+
+
+
+    private myOnItemClickListener mClickListener;
+    private myOnItemLongClickListener mLongClickListener;
+    public void setListeners(myOnItemClickListener clickListener, myOnItemLongClickListener longClickListener){
+        mClickListener=clickListener;
+        mLongClickListener=longClickListener;
+        setListenersToFragments();
+    }
+    private void setListenersToFragments(){
+        if(mFragmentFriendsAndroid!=null){
+            mFragmentFriendsAndroid.setClickListeners(mClickListener,mLongClickListener);
+        }
+        if(mFragmentFriendsiOS!=null){
+            mFragmentFriendsiOS.setClickListeners(mClickListener,mLongClickListener);
+        }
+        if(mFragmentFriendsFront!=null){
+            mFragmentFriendsFront.setClickListeners(mClickListener,mLongClickListener);
         }
     }
 }

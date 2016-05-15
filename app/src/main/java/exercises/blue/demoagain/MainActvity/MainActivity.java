@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +26,8 @@ import android.widget.Toast;
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.agendaFragement.agenda;
 import exercises.blue.demoagain.friendsFragment.friendsRecyclerAdapter;
+import exercises.blue.demoagain.interfaces.myOnItemClickListener;
+import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
 import exercises.blue.demoagain.singleActivities.dianming;
 import exercises.blue.demoagain.singleActivities.publishActivity;
 
@@ -80,8 +83,29 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         FragmentManager manager = getSupportFragmentManager();
         if (pager != null) {
-
+            final View.OnClickListener clicked = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                }
+            };
             adapter = new fragmentPagerAdapter(manager);
+            myOnItemLongClickListener longClickListener = new myOnItemLongClickListener() {
+                @Override
+                public void onItemLongClick(View v, int position) {
+
+                    Snackbar.make(pager, "Hello world", Snackbar.LENGTH_LONG)
+                            .setAction("YES", clicked)
+                            .show();
+                }
+            };
+            myOnItemClickListener clickListener = new myOnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    Toast.makeText(MainActivity.this, "Hello world", Toast.LENGTH_SHORT).show();
+                }
+            };
+            adapter.setListeners(clickListener, longClickListener);
             pager.setAdapter(adapter);
         }
 
@@ -132,39 +156,40 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        switch (id) {
+//            case R.id.test_add:
+//                showItemActonDialog(R.id.test_add);
+//                break;
+//            case R.id.test_add_more:
+//
+//                break;
+//            case R.id.test_remove_at_zero:
+//                adapter.removeFriends(0);
+//                break;
+//            case R.id.test_remove_at:
+//                showItemActonDialog(R.id.test_remove_at);
+//                break;
+//            case R.id.agenda_add:
+//                showItemActonDialog(R.id.agenda_add);
+//                break;
+//            case R.id.agenda_remove:
+//                showItemActonDialog(R.id.agenda_remove);
+//                break;
+//            case R.id.refresh_friends:
+//                //adapter.refreshFriends();
+//                adapter.clear();
+//                break;
+//
+//            default:
+//                break;
 
-        //noinspection SimplifiableIfStatement
-        switch (id) {
-            case R.id.test_add:
-                showItemActonDialog(R.id.test_add);
-                break;
-            case R.id.test_add_more:
+        //}
 
-                break;
-            case R.id.test_remove_at_zero:
-                adapter.removeFriends(0);
-                break;
-            case R.id.test_remove_at:
-                showItemActonDialog(R.id.test_remove_at);
-                break;
-            case R.id.agenda_add:
-                showItemActonDialog(R.id.agenda_add);
-                break;
-            case R.id.agenda_remove:
-                showItemActonDialog(R.id.agenda_remove);
-                break;
-            case R.id.refresh_friends:
-                //adapter.refreshFriends();
-                adapter.clear();
-                break;
-
-            default:
-                break;
-
-        }
-
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item);
+        return false;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -236,60 +261,60 @@ public class MainActivity extends AppCompatActivity
 
     public void showItemActonDialog(int itemId) {
 
-        View input = getLayoutInflater().inflate(R.layout.number_input_layout, null);
-        final EditText etInput = (EditText) input.findViewById(R.id.input_number);
-        //final int[] position = {0};
-        //两个OnClickListener好像可以合并的样子
-       AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setIcon(R.mipmap.ic_launcher)
-                .setTitle("请输入位置")
-                .setView(input)
-                .setNegativeButton("取消",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-
-        switch (itemId){
-            case R.id.test_add:
-                builder.setTitle("添加功能已经废弃");
-                break;
-            case R.id.test_remove_at:
-                builder.setPositiveButton("删除",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            int position = Integer.parseInt(etInput.getText().toString());
-                            adapter.removeFriends(position);
-                        }
-                    });
-                break;
-            case R.id.agenda_add:
-                builder.setPositiveButton("添加",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int position = Integer.parseInt(etInput.getText().toString());
-                                adapter.addAgenda(position);
-                            }
-                        });
-                break;
-            case R.id.agenda_remove:
-                builder.setPositiveButton("删除",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int position = Integer.parseInt(etInput.getText().toString());
-                                adapter.removeAgenda(position);
-                            }
-                        });
-                break;
-            default: break;
-        }
-
-        builder.create().show();
+//        View input = getLayoutInflater().inflate(R.layout.number_input_layout, null);
+//        final EditText etInput = (EditText) input.findViewById(R.id.input_number);
+//        //final int[] position = {0};
+//        //两个OnClickListener好像可以合并的样子
+//       AlertDialog.Builder builder = new AlertDialog.Builder(this)
+//                .setIcon(R.mipmap.ic_launcher)
+//                .setTitle("请输入位置")
+//                .setView(input)
+//                .setNegativeButton("取消",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//
+//        switch (itemId){
+//            case R.id.test_add:
+//                builder.setTitle("添加功能已经废弃");
+//                break;
+//            case R.id.test_remove_at:
+//                builder.setPositiveButton("删除",
+//                    new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            int position = Integer.parseInt(etInput.getText().toString());
+//                            adapter.removeFriends(position);
+//                        }
+//                    });
+//                break;
+//            case R.id.agenda_add:
+//                builder.setPositiveButton("添加",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                int position = Integer.parseInt(etInput.getText().toString());
+//                                adapter.addAgenda(position);
+//                            }
+//                        });
+//                break;
+//            case R.id.agenda_remove:
+//                builder.setPositiveButton("删除",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                int position = Integer.parseInt(etInput.getText().toString());
+//                                adapter.removeAgenda(position);
+//                            }
+//                        });
+//                break;
+//            default: break;
+//        }
+//
+//        builder.create().show();
 
     }
 
