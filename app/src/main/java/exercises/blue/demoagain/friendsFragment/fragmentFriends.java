@@ -1,7 +1,10 @@
 package exercises.blue.demoagain.friendsFragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import exercises.blue.demoagain.MainActvity.MainActivity;
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.interfaces.myOnItemClickListener;
 import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
@@ -36,12 +41,13 @@ import exercises.blue.demoagain.userdata.friendsDatum;
  * <p/>
  * Created by getbl on 2016/4/18.
  */
-public class fragmentFriends extends Fragment {
+public class fragmentFriends extends Fragment
+        implements myOnItemClickListener, myOnItemLongClickListener {
 
 
     private static final String TAG = "bluelog";
     friendsRecyclerAdapter adapter;
-   // fragmentFriends master;
+    // fragmentFriends master;
     RecyclerView mRecyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     RequestQueue mRequestQueue;
@@ -83,7 +89,7 @@ public class fragmentFriends extends Fragment {
 
     public static fragmentFriends newInstance(String category) {
         Bundle args = new Bundle();
-        args.putString("category",category);
+        args.putString("category", category);
         fragmentFriends fragment = new fragmentFriends();
         fragment.setArguments(args);
         return fragment;
@@ -95,10 +101,10 @@ public class fragmentFriends extends Fragment {
         mCategory = args.getString("category");
     }
 
-    public void setClickListeners(@Nullable myOnItemClickListener clickListener, @Nullable myOnItemLongClickListener longClickListener){
-        mItemClickListener=clickListener;
-        mItemLongClickListener=longClickListener;
-    }
+//    public void setClickListeners(@Nullable myOnItemClickListener clickListener, @Nullable myOnItemLongClickListener longClickListener) {
+//        mItemClickListener = clickListener;
+//        mItemLongClickListener = longClickListener;
+//    }
 
     @Nullable
     @Override
@@ -108,7 +114,7 @@ public class fragmentFriends extends Fragment {
 
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.list);
 
-        adapter = new friendsRecyclerAdapter(mCategory,mItemClickListener, mItemLongClickListener);
+        adapter = new friendsRecyclerAdapter(mCategory, this, this);
         mRecyclerView.setAdapter(adapter);
 
 
@@ -122,14 +128,13 @@ public class fragmentFriends extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-
         mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.refresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mRequestQueue = Volley.newRequestQueue(mView.getContext());
 
-                final int page = (adapter.getItemCount()/10)+1;//脑残X2(╯‵□′)╯︵┻━┻
+                final int page = (adapter.getItemCount() / 10) + 1;//脑残X2(╯‵□′)╯︵┻━┻
                 Log.e(TAG, "onRefresh: page number " + page + "--adapter" + adapter.getItemCount());
                 /**
                  * Creates a new request.
@@ -139,23 +144,23 @@ public class fragmentFriends extends Fragment {
                  * @param errorListener Error listener, or null to ignore errors.
                  */
                 final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                        "http://gank.io/api/data/"+mCategory+"/10/"+(page),
+                        "http://gank.io/api/data/" + mCategory + "/10/" + (page),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    Log.i(TAG, "onResponse: current page "+page);
+                                    Log.i(TAG, "onResponse: current page " + page);
                                     ArrayList<friendsDatum> fList = new ArrayList<friendsDatum>();
                                     //fList.add(0,new friendsDatum("--------------","222222"));
                                     JSONArray jsonArray = response.getJSONArray("results");
                                     for (int count = 0; count < jsonArray.length(); count++) {
                                         JSONObject jsonObject = jsonArray.getJSONObject(count);
                                         Log.i(TAG, "onResponse:" + jsonObject.getString("desc") + ":" + jsonObject.getString("url"));
-                                        fList.add(new friendsDatum(jsonObject.getString("desc"),jsonObject.getString("url"),jsonObject.getString("who")));
-                                       //Log.i(TAG, "onResponse: current size"+ fList.size());
+                                        fList.add(new friendsDatum(jsonObject.getString("desc"), jsonObject.getString("url"), jsonObject.getString("who")));
+                                        //Log.i(TAG, "onResponse: current size"+ fList.size());
                                     }
                                     //脑残!(╯‵□′)╯︵┻━┻
-                                    adapter.addList(mCategory,fList);
+                                    adapter.addList(mCategory, fList);
                                 } catch (JSONException e) {
 
                                     e.printStackTrace();
@@ -175,5 +180,27 @@ public class fragmentFriends extends Fragment {
         return mView;
     }
 
+
+    @Override
+    public void onItemLongClick(View v, int position) {
+        Snackbar.make(mSwipeRefreshLayout, "收藏功能还在制作当中n(*≧▽≦*)n", Snackbar.LENGTH_LONG)
+                .setAction("哦", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                }).show();
+    }
+
+
+    @Override
+    public void onItemClick(View v, int position) {
+        String url = adapter.getItemString(position);  //"http://cn.bing.com"; // web address
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+
+        intent.setData(Uri.parse(url));
+
+        startActivity(intent);
+    }
 
 }

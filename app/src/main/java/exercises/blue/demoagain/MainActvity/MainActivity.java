@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity
 //    agenda mAgenda;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -83,32 +81,34 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         FragmentManager manager = getSupportFragmentManager();
         if (pager != null) {
-            final View.OnClickListener clicked = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i(TAG, "onClick: ?????????");
-                    Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
-                }
-            };
             adapter = new fragmentPagerAdapter(manager);
-            myOnItemLongClickListener longClickListener = new myOnItemLongClickListener() {
-                @Override
-                public void onItemLongClick(View v, int position) {
+//            final View.OnClickListener clicked = new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.i(TAG, "onClick: ?????????");
+//                    Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+//                }
+//            };
 
-                    Snackbar.make(pager, "Hello world", Snackbar.LENGTH_LONG)
-                            .setAction("YES", clicked)
-                            .show();
-                }
-            };
-
-            myOnItemClickListener clickListener = new myOnItemClickListener() {
-                @Override
-                public void onItemClick(View v, int position) {
-                    Log.i(TAG, "onItemClick: ?????");
-                    Toast.makeText(MainActivity.this, "Hello world", Toast.LENGTH_SHORT).show();
-                }
-            };
-            adapter.setListeners(clickListener, longClickListener);
+//            myOnItemLongClickListener longClickListener = new myOnItemLongClickListener() {
+//                @Override
+//                public void onItemLongClick(View v, int position) {
+//
+//                    Snackbar.make(pager, "Hello world", Snackbar.LENGTH_LONG)
+//                            .setAction("YES", clicked)
+//                            .show();
+//                }
+//            };
+//
+//            myOnItemClickListener clickListener = new myOnItemClickListener() {
+//                @Override
+//                public void onItemClick(View v, int position) {
+//                    adapter.getItem()
+//                    Log.i(TAG, "onItemClick: ?????");
+//                    Toast.makeText(MainActivity.this, "Hello world", Toast.LENGTH_SHORT).show();
+//                }
+//            };
+//            adapter.setListeners(clickListener, longClickListener);
             pager.setAdapter(adapter);
         }
 
@@ -247,10 +247,11 @@ public class MainActivity extends AppCompatActivity
     /**
      * 其他Activity返回时回调.
      * 通过Floating ActionBar 添加新条目.
+     *
      * @param requestCode requestCode没有使用.
-     * @param resultCode 213 是新建用Activity确定并返回信息的resultCode.
-     *                   444 是新建用Activity取消的resultCode.
-     * @param data 数据
+     * @param resultCode  213 是新建用Activity确定并返回信息的resultCode.
+     *                    444 是新建用Activity取消的resultCode.
+     * @param data        数据
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

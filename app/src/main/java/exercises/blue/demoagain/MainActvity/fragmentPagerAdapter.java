@@ -141,22 +141,22 @@ class fragmentPagerAdapter extends FragmentPagerAdapter  {
 
 
 
-    private myOnItemClickListener mClickListener;
-    private myOnItemLongClickListener mLongClickListener;
-    public void setListeners(myOnItemClickListener clickListener, myOnItemLongClickListener longClickListener){
-        mClickListener=clickListener;
-        mLongClickListener=longClickListener;
-        setListenersToFragments();
-    }
-    private void setListenersToFragments(){
-        if(mFragmentFriendsAndroid!=null){
-            mFragmentFriendsAndroid.setClickListeners(mClickListener,mLongClickListener);
-        }
-        if(mFragmentFriendsiOS!=null){
-            mFragmentFriendsiOS.setClickListeners(mClickListener,mLongClickListener);
-        }
-        if(mFragmentFriendsFront!=null){
-            mFragmentFriendsFront.setClickListeners(mClickListener,mLongClickListener);
-        }
-    }
+//    private myOnItemClickListener mClickListener;
+//    private myOnItemLongClickListener mLongClickListener;
+//    public void setListeners(myOnItemClickListener clickListener, myOnItemLongClickListener longClickListener){
+//        mClickListener=clickListener;
+//        mLongClickListener=longClickListener;
+//        setListenersToFragments();
+//    }
+//    private void setListenersToFragments(){
+//        if(mFragmentFriendsAndroid!=null){
+//            mFragmentFriendsAndroid.setClickListeners(mClickListener,mLongClickListener);
+//        }
+//        if(mFragmentFriendsiOS!=null){
+//            mFragmentFriendsiOS.setClickListeners(mClickListener,mLongClickListener);
+//        }
+//        if(mFragmentFriendsFront!=null){
+//            mFragmentFriendsFront.setClickListeners(mClickListener,mLongClickListener);
+//        }
+//    }
 }
