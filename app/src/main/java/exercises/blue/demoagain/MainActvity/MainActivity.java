@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity
             final View.OnClickListener clicked = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.i(TAG, "onClick: ?????????");
                     Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
                 }
             };
@@ -99,9 +100,11 @@ public class MainActivity extends AppCompatActivity
                             .show();
                 }
             };
+
             myOnItemClickListener clickListener = new myOnItemClickListener() {
                 @Override
                 public void onItemClick(View v, int position) {
+                    Log.i(TAG, "onItemClick: ?????");
                     Toast.makeText(MainActivity.this, "Hello world", Toast.LENGTH_SHORT).show();
                 }
             };
