@@ -6,6 +6,7 @@ ERRORS:
     3刷新列表  保存当前已经获取到的数据的页面 (已经解决 还是智商问题
     4封装mData
     5下拉刷新的动画问题
-    6 OnClickListener  -- 打开网页
+    6 OnClickListener  -- 打开网页 (Done
     7 收藏夹
-    8 OnItemLongClickListener -- 收藏
+    8 OnItemLongClickListener -- 收藏 (Done
+    9 给FloatingActionBar找个事做

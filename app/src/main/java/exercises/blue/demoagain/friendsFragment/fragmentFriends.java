@@ -1,6 +1,8 @@
 package exercises.blue.demoagain.friendsFragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,9 +28,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-import exercises.blue.demoagain.MainActvity.MainActivity;
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.interfaces.myOnItemClickListener;
 import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
@@ -58,7 +60,7 @@ public class fragmentFriends extends Fragment
 //    myOnItemClickListener mItemClickListener = new myOnItemClickListener() {
 //        @Override
 //        public void onItemClick(View v, int position) {
-//            String url = adapter.getItemString(position);  //"http://cn.bing.com"; // web address
+//            String url = adapter.getItemUrl(position);  //"http://cn.bing.com"; // web address
 //
 //            Intent intent = new Intent(Intent.ACTION_VIEW);
 //
@@ -183,7 +185,17 @@ public class fragmentFriends extends Fragment
 
     @Override
     public void onItemLongClick(View v, int position) {
-        Snackbar.make(mSwipeRefreshLayout, "收藏功能还在制作当中n(*≧▽≦*)n", Snackbar.LENGTH_LONG)
+        String title = getAdapter().getItemTitle(position);
+        String url = getAdapter().getItemUrl(position);
+        if (setPref(title, url)) {
+
+            Snackbar.make(mSwipeRefreshLayout, "收藏好了哟 \\(≧▽≦)/", Snackbar.LENGTH_LONG)
+                    .setAction("哦", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    }).show();
+        } else Snackbar.make(mSwipeRefreshLayout, "已经存在了哟", Snackbar.LENGTH_LONG)
                 .setAction("哦", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -191,10 +203,23 @@ public class fragmentFriends extends Fragment
                 }).show();
     }
 
+    private boolean setPref(String title, String url) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(getContext().getString(R.string.sharedPreferenceName), Context.MODE_PRIVATE);
+        if (sharedPreferences.contains(title)) {
+            Log.e(TAG, "setPref: true");
+            return false;
+        } else {
+            Log.e(TAG, "setPref: false");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(title, url);
+            editor.commit();
+            return true;
+        }
+    }
 
     @Override
     public void onItemClick(View v, int position) {
-        String url = adapter.getItemString(position);  //"http://cn.bing.com"; // web address
+        String url = adapter.getItemUrl(position);  //"http://cn.bing.com"; // web address
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
 

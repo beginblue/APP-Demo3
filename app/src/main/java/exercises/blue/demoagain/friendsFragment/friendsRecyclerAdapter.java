@@ -121,10 +121,13 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         notifyDataSetChanged();
     }
 
-    public String getItemString(int position) {
+    public String getItemUrl(int position) {
         return mDataSet.getList(mCategory).get(position).getContent();
     }
 
+    public String getItemTitle(int position){
+        return mDataSet.getList(mCategory).get(position).getTitle();
+    }
     /**
      * view holder
      */

@@ -1,33 +1,32 @@
 package exercises.blue.demoagain.MainActvity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Set;
+
+import exercises.blue.demoagain.CollectionActivity.Collection;
+import exercises.blue.demoagain.CollectionActivity.ScrollingActivity;
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.agendaFragement.agenda;
 import exercises.blue.demoagain.friendsFragment.friendsRecyclerAdapter;
-import exercises.blue.demoagain.interfaces.myOnItemClickListener;
-import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
 import exercises.blue.demoagain.singleActivities.dianming;
 import exercises.blue.demoagain.singleActivities.publishActivity;
 
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     //friendsDataSet set = friendsDataSet.newInstance();
     fragmentPagerAdapter adapter;
     friendsRecyclerAdapter mFriendsRecyclerAdapter;
+    boolean isBackPressed = false;
 //    fragmentFriends mFragmentFriends;
 //    agenda mAgenda;
 
@@ -142,6 +142,22 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if (!isBackPressed) {
+                Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                isBackPressed = true;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                            isBackPressed = false;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).run();
+                return;
+            }
             super.onBackPressed();
         }
     }
@@ -156,6 +172,21 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.showPref) {
+            SharedPreferences preferences = getSharedPreferences(this.getString(R.string.sharedPreferenceName), MODE_PRIVATE);
+            Set<String> strings = preferences.getAll().keySet();
+            String all = "";
+            for (String string : strings) {
+                all += (string + preferences.getString(string, null));
+            }
+            Toast.makeText(MainActivity.this, all, Toast.LENGTH_SHORT).show();
+        } else if (item.getItemId() == R.id.clearPref) {
+            getSharedPreferences(getString(R.string.sharedPreferenceName), MODE_PRIVATE).edit().clear().commit();
+        }else if (item.getItemId()==R.id.startCollection){
+            startActivity(new Intent(this,ScrollingActivity.class));
+        }
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -247,7 +278,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * 其他Activity返回时回调.
      * 通过Floating ActionBar 添加新条目.
-     *
+     * 现在已经不用了. 都是在fragment内添加,修改数据
      * @param requestCode requestCode没有使用.
      * @param resultCode  213 是新建用Activity确定并返回信息的resultCode.
      *                    444 是新建用Activity取消的resultCode.

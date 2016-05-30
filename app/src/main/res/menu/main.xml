@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/test_add"
-        android:orderInCategory="100"
-        android:title="Add one at the last"
-        app:showAsAction="never"/>
-    <item android:id="@+id/test_remove_at_zero"
-          android:orderInCategory="50"
-          android:title="Delete the frist"
-          app:showAsAction="never"/>
+    <!--<item-->
+    <!--android:id="@+id/test_add"-->
+    <!--android:orderInCategory="100"-->
+    <!--android:title="Add one at the last"-->
+    <!--app:showAsAction="never"/>-->
+    <!--<item android:id="@+id/test_remove_at_zero"-->
+    <!--android:orderInCategory="50"-->
+    <!--android:title="Delete the frist"-->
+    <!--app:showAsAction="never"/>-->
 
-    <item android:id="@+id/test_add_more"
-          android:orderInCategory="50"
-          android:title="Add three at the last"
-          app:showAsAction="never"/>
-    <item android:id="@+id/test_remove_at"
-          android:orderInCategory="100"
-          android:title="Remove a specific one"
-          app:showAsAction="never"/>
-    <item android:id="@+id/agenda_add"
-          android:orderInCategory="20"
-          android:title="Agenda-add an item"
-          app:showAsAction="never"/>
-    <item android:id="@+id/agenda_remove"
-          android:orderInCategory="30"
-          android:title="Agenda-remove an item"
-          app:showAsAction="never"/>
-    <item android:id="@+id/refresh_friends"
-          android:orderInCategory="30"
-          android:title="refresh"/>
-
+    <!--<item android:id="@+id/test_add_more"-->
+    <!--android:orderInCategory="50"-->
+    <!--android:title="Add three at the last"-->
+    <!--app:showAsAction="never"/>-->
+    <!--<item android:id="@+id/test_remove_at"-->
+    <!--android:orderInCategory="100"-->
+    <!--android:title="Remove a specific one"-->
+    <!--app:showAsAction="never"/>-->
+    <!--<item android:id="@+id/agenda_add"-->
+    <!--android:orderInCategory="20"-->
+    <!--android:title="Agenda-add an item"-->
+    <!--app:showAsAction="never"/>-->
+    <!--<item android:id="@+id/agenda_remove"-->
+    <!--android:orderInCategory="30"-->
+    <!--android:title="Agenda-remove an item"-->
+    <!--app:showAsAction="never"/>-->
+    <!--<item android:id="@+id/refresh_friends"-->
+    <!--android:orderInCategory="30"-->
+    <!--android:title="refresh"/>-->
+    <group
+        android:id="@+id/lll">
+        <item
+            android:id="@+id/showPref"
+            android:title="Show Preference"/>
+        <item
+            android:id="@+id/clearPref"
+            android:title="Clear"/>
+        <item
+            android:id="@+id/startCollection"
+            android:title="my Collection"/>
+    </group>
 </menu>

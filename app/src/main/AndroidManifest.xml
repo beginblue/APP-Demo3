@@ -3,8 +3,8 @@
           package="exercises.blue.demoagain">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
     <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +26,13 @@
         <activity android:name=".singleActivities.dianming">
         </activity>
         <activity android:name=".singleActivities.publishActivity">
+        </activity>
+        <activity android:name=".CollectionActivity.Collection">
+        </activity>
+        <activity
+            android:name=".CollectionActivity.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
