@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import java.util.Set;
 
-import exercises.blue.demoagain.CollectionActivity.Collection;
 import exercises.blue.demoagain.CollectionActivity.ScrollingActivity;
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.agendaFragement.agenda;
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_real);
         //加载Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Blue");
+        toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
         //加载FloatingActionButton
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
