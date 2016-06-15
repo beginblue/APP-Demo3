@@ -6,6 +6,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import exercises.blue.demoagain.R;
@@ -17,10 +18,11 @@ public class MyAdapter extends BaseAdapter{
     private  List<ItemBean> mList;              //数据源与数据适配器进行关联
     public void addAll(List<ItemBean> list) {
         mList = list;
+        notifyDataSetChanged();
     }
 
     public MyAdapter(){
-
+        mList=new ArrayList<>();
     }
 
 
@@ -45,7 +47,7 @@ public class MyAdapter extends BaseAdapter{
         ViewHolder viewHolder;
         if(convertView==null){
             viewHolder=new ViewHolder();
-            convertView=View.inflate(convertView.getContext(),R.layout.item,null);
+            convertView=View.inflate(parent.getContext(),R.layout.item,null);
             viewHolder.imageView=(ImageView)convertView.findViewById(R.id.iv_image);
             viewHolder.title=(TextView)convertView.findViewById(R.id.tv_title);
             viewHolder.content=(TextView)convertView.findViewById(R.id.tv_content);

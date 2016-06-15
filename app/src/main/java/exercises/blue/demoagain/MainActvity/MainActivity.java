@@ -26,6 +26,7 @@ import exercises.blue.demoagain.CollectionActivity.ScrollingActivity;
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.agendaFragement.agenda;
 import exercises.blue.demoagain.friendsFragment.friendsRecyclerAdapter;
+import exercises.blue.demoagain.seek.Main2Activity;
 import exercises.blue.demoagain.singleActivities.dianming;
 import exercises.blue.demoagain.singleActivities.publishActivity;
 
@@ -235,9 +236,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, BeautyCards.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
-
-
-        } else if (id == R.id.nav_slideshow) {
+            Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+            startActivity(intent);
+        } else if ( id == R.id.nav_slideshow) {
 
             //Intent intent = new Intent("com.google.zxing.client.android.SCAN");
             //startActivity(intent);

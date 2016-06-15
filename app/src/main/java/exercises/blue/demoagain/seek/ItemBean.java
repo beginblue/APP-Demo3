@@ -13,4 +13,9 @@ public class ItemBean {
         ItemTitle = itemTitle;
         ItemContent = itemContent;
     }
+    public ItemBean( String itemTitle, String itemContent) {
+        ItemImageResid = 0;
+        ItemTitle = itemTitle;
+        ItemContent = itemContent;
+    }
 }
