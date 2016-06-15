@@ -18,8 +18,8 @@ import java.net.URL;
 public class imageLoader {
     private String baseUrl;
     private Bitmap mBitmapRes;
-    private int defaultImageResource;
-    private int errorImageResource;
+    private int defaultImageResource = 0;
+    private int errorImageResource = 0;
     private ImageView targetImageView;
 
     Handler mHandler = new Handler() {
@@ -27,27 +27,36 @@ public class imageLoader {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
                 targetImageView.setImageBitmap(mBitmapRes);
-            } else{
-                targetImageView.setImageResource(errorImageResource);
+            } else {
+                if (errorImageResource != 0)
+                    targetImageView.setImageResource(errorImageResource);
                 //targetImageView.setImageDrawable(errorImage);
             }
         }
     };
 
 
-    public imageLoader(String url) {
+
+    public imageLoader from(String url) {
         baseUrl = url;
+        return this;
     }
-    public imageLoader(){}
-    public imageLoader into (ImageView imageView) {
+
+
+    /**
+     * imageLoader loader = new loader();
+     * loder.from(textView).into(imageView);
+     */
+
+    public imageLoader into(ImageView imageView) {
         if (imageView != null) targetImageView = imageView;
         targetImageView.setImageResource(defaultImageResource);
         return this;
     }
 
-    public imageLoader execute (String url) {
-        baseUrl=url;
-        System.out.println("Arrived");
+    public imageLoader execute() {
+
+        //System.out.println("Arrived");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -62,30 +71,41 @@ public class imageLoader {
         return this;
     }
 
+    public void backToDefault() {
+        targetImageView.setImageResource(defaultImageResource);
+    }
+
     public imageLoader setErrorImage(int errorImageResource) {
         this.errorImageResource = errorImageResource;
         return this;
     }
 
-    private void netStuff() {
-                Message message = new Message();
-                try {
-                    URL url = new URL(baseUrl);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setConnectTimeout(5000);
-                    conn.setRequestMethod("GET");
-                    conn.connect();
-                    InputStream inputStream = conn.getInputStream();
-                    mBitmapRes = BitmapFactory.decodeStream(inputStream);
-                    message.what = 1;
+    public imageLoader changeImage(String url) {
+        baseUrl = url;
+        execute();
+        return this;
+    }
 
-                } catch (IOException e) {
-                    message.what = 2;
-                    e.printStackTrace();
-                }
-                finally {
-                    mHandler.sendMessage(message);
-                }
+    private void netStuff() {
+        Message message = new Message();
+        try {
+            URL url = new URL(baseUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+            //OutputStream stream  = conn.getOutputStream();
+            conn.connect();
+            InputStream inputStream = conn.getInputStream();
+            mBitmapRes = BitmapFactory.decodeStream(inputStream);
+            //throw new IOException("@@@");
+            message.what = 1;
+
+        } catch (IOException e) {
+            message.what = 2;
+            e.printStackTrace();
+        } finally {
+            mHandler.sendMessage(message);
+        }
 
     }
 }

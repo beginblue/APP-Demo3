@@ -14,7 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.Set;
 
+import exercises.blue.demoagain.BeautyGallery.BeautyCards;
 import exercises.blue.demoagain.CollectionActivity.ScrollingActivity;
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.agendaFragement.agenda;
@@ -232,12 +232,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-            if (mFriendsRecyclerAdapter != null) {
-
-            } else {
-                Log.e(TAG, "onNavigationItemSelected: adapter is null");
-            }
+            Intent intent = new Intent(MainActivity.this, BeautyCards.class);
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
 

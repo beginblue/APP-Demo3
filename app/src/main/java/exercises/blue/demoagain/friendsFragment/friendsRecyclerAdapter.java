@@ -122,11 +122,11 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
     }
 
     public String getItemUrl(int position) {
-        return mDataSet.getList(mCategory).get(position).getContent();
+        return ((ArrayList<friendsDatum>)mDataSet.getList(mCategory)).get(position).getContent();
     }
 
     public String getItemTitle(int position){
-        return mDataSet.getList(mCategory).get(position).getTitle();
+        return ((ArrayList<friendsDatum>)mDataSet.getList(mCategory)).get(position).getTitle();
     }
     /**
      * view holder

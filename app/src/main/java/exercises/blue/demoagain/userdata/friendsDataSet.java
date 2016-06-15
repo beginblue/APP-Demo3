@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class friendsDataSet {
 
-    private static Map<String,List<friendsDatum>> mDataPool;
+    private static Map<String,List> mDataPool;
 
     static friendsDataSet instance;
 
@@ -29,7 +29,7 @@ public class friendsDataSet {
         mDataPool.put("Android",new ArrayList<friendsDatum>());
         mDataPool.put("iOS",new ArrayList<friendsDatum>());
         mDataPool.put("前端",new ArrayList<friendsDatum>());
-
+        mDataPool.put("福利",new ArrayList<beautyData.ResultsBean>());
     }
 
     public static friendsDataSet newInstance() {
@@ -37,16 +37,27 @@ public class friendsDataSet {
         return instance;
     }
 
-
-    public ArrayList<friendsDatum> getList(String category) {
-        return (ArrayList<friendsDatum>) mDataPool.get(category);
+    public int getDataCount(String category){
+        return mDataPool.get(category).size();
     }
 
 
-    public void setList(String category, List<friendsDatum> list) {
+
+
+    //废弃
+    public List getList(String category) {
+        return  mDataPool.get(category);
+    }
+
+
+//    public ArrayList<beautyData.ResultsBean> getBeauties(){
+//        return mDataPool.get("福利");
+//    }
+
+    public void setList(String category, List list) {
         //this.list = list;
         //this.list.addAll(list);
-       mDataPool.get(category).addAll(list);
+        mDataPool.get(category).addAll(list);
     }
 
     public void addItem(String category,friendsDatum datum) {
