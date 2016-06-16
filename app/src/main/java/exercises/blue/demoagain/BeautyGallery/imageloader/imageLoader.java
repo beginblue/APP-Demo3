@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
+import android.util.LruCache;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class imageLoader {
     private int defaultImageResource = 0;
     private int errorImageResource = 0;
     private ImageView targetImageView;
+    private LruCache<String, Bitmap> memoryCache;
+
 
     Handler mHandler = new Handler() {
         @Override
@@ -36,6 +39,10 @@ public class imageLoader {
     };
 
 
+    public imageLoader(LruCache<String,Bitmap> memoryCache) {
+
+        this.memoryCache = memoryCache;
+    }
 
     public imageLoader from(String url) {
         baseUrl = url;
@@ -56,13 +63,15 @@ public class imageLoader {
 
     public imageLoader execute() {
 
-        //System.out.println("Arrived");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                netStuff();
-            }
-        }).start();
+        Bitmap cachedBitmap = memoryCache.get(baseUrl);
+        if (cachedBitmap == null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    netStuff();
+                }
+            }).start();
+        } else targetImageView.setImageBitmap(cachedBitmap);
         return this;
     }
 
@@ -99,6 +108,7 @@ public class imageLoader {
             mBitmapRes = BitmapFactory.decodeStream(inputStream);
             //throw new IOException("@@@");
             message.what = 1;
+             memoryCache.put(baseUrl, mBitmapRes);
 
         } catch (IOException e) {
             message.what = 2;

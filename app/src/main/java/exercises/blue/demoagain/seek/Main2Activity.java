@@ -1,8 +1,7 @@
 package exercises.blue.demoagain.seek;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,10 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import exercises.blue.demoagain.R;
-import exercises.blue.demoagain.userdata.friendsDatum;
 
 public class Main2Activity extends AppCompatActivity {
 

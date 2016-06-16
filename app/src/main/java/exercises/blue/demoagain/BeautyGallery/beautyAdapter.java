@@ -1,6 +1,8 @@
 package exercises.blue.demoagain.BeautyGallery;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,23 +17,21 @@ import exercises.blue.demoagain.userdata.beautyData;
 import exercises.blue.demoagain.userdata.friendsDataSet;
 
 /**
- *
  * Created by getbl on 2016/6/15.
  */
 public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHolder> {
 
 
     private static final String TAG = "beautyAdapter";
-    private imageLoader mLoader;
-
+    private LruCache<String, Bitmap> cache;
     private ArrayList<beautyData.ResultsBean> mData;
 
 
+    public beautyAdapter() {
+        cache = new LruCache<>((int) (Runtime.getRuntime().maxMemory() / 8196));
 
-    public beautyAdapter(){
-        mLoader= new imageLoader();
-        mData= (ArrayList<beautyData.ResultsBean>) friendsDataSet.newInstance().getList("福利");
-       //if(mData==null) mData= new ArrayList<beautyData.ResultsBean>();
+        mData = (ArrayList<beautyData.ResultsBean>) friendsDataSet.newInstance().getList("福利");
+        //if(mData==null) mData= new ArrayList<beautyData.ResultsBean>();
     }
 
     public void addBeauty(beautyData deltaData) {
@@ -48,7 +48,7 @@ public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHold
     @Override
     public void onBindViewHolder(beautyHolder holder, int position) {
         beautyData.ResultsBean bean = mData.get(position);
-        new imageLoader().from(bean.getUrl()).into(holder.mImageView).execute();
+        new imageLoader(cache).from(bean.getUrl()).into(holder.mImageView).execute();
         holder.mTextView.setText(bean.getDesc());
     }
 
@@ -58,12 +58,11 @@ public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHold
     }
 
 
-    public void addAll(ArrayList<beautyData.ResultsBean> beans)
-    {
+    public void addAll(ArrayList<beautyData.ResultsBean> beans) {
         //if(mData==null) mData=new ArrayList<>();
-       for(beautyData.ResultsBean bean : beans){
-           mData.add(0,bean);
-       }
+        for (beautyData.ResultsBean bean : beans) {
+            mData.add(0, bean);
+        }
 
         notifyDataSetChanged();
     }

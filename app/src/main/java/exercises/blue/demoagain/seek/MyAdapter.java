@@ -14,7 +14,8 @@ import exercises.blue.demoagain.R;
 /**
  * Created by blue on 16-6-15.
  */
-public class MyAdapter extends BaseAdapter{
+public class
+MyAdapter extends BaseAdapter{
     private  List<ItemBean> mList;              //数据源与数据适配器进行关联
     public void addAll(List<ItemBean> list) {
         mList = list;
