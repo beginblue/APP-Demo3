@@ -28,9 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.interfaces.myOnItemClickListener;
@@ -136,16 +134,8 @@ public class fragmentFriends extends Fragment
             public void onRefresh() {
                 mRequestQueue = Volley.newRequestQueue(mView.getContext());
 
-                final int page = (adapter.getItemCount() / 10) + 1;//脑残X2(╯‵□′)╯︵┻━┻
-                Log.e(TAG, "onRefresh: page number " + page + "--adapter" + adapter.getItemCount());
-                /**
-                 * Creates a new request.
-                 * @param method the HTTP method to use
-                 * @param url URL to fetch the JSON from
-                 * @param listener Listener to receive the JSON response
-                 * @param errorListener Error listener, or null to ignore errors.
-                 */
-                final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                final int page = (adapter.getItemCount() / 10) + 1;
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
                         "http://gank.io/api/data/" + mCategory + "/10/" + (page),
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -153,15 +143,17 @@ public class fragmentFriends extends Fragment
                                 try {
                                     Log.i(TAG, "onResponse: current page " + page);
                                     ArrayList<friendsDatum> fList = new ArrayList<friendsDatum>();
-                                    //fList.add(0,new friendsDatum("--------------","222222"));
+
                                     JSONArray jsonArray = response.getJSONArray("results");
                                     for (int count = 0; count < jsonArray.length(); count++) {
                                         JSONObject jsonObject = jsonArray.getJSONObject(count);
-                                        Log.i(TAG, "onResponse:" + jsonObject.getString("desc") + ":" + jsonObject.getString("url"));
-                                        fList.add(new friendsDatum(jsonObject.getString("desc"), jsonObject.getString("url"), jsonObject.getString("who")));
-                                        //Log.i(TAG, "onResponse: current size"+ fList.size());
+                                        Log.i(TAG, "onResponse:" + jsonObject.getString("desc") + ":"
+                                                + jsonObject.getString("url"));
+                                        fList.add(new friendsDatum(
+                                                jsonObject.getString("desc"),
+                                                jsonObject.getString("url"),
+                                                jsonObject.getString("who")));
                                     }
-                                    //脑残!(╯‵□′)╯︵┻━┻
                                     adapter.addList(mCategory, fList);
                                 } catch (JSONException e) {
 

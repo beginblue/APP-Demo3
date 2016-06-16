@@ -1,9 +1,11 @@
 package exercises.blue.demoagain.seek;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,27 +45,37 @@ MyAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        //return null;                           //返回每一项的显示内容
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        //return null;
+        // 返回每一项的显示内容
+        final Context context = parent.getContext();
         ViewHolder viewHolder;
         if(convertView==null){
             viewHolder=new ViewHolder();
-            convertView=View.inflate(parent.getContext(),R.layout.item,null);
-            viewHolder.imageView=(ImageView)convertView.findViewById(R.id.iv_image);
+            convertView=View.inflate(context,R.layout.item,null);
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ItemBean itemBean = mList.get(position);//"http://cn.bing.com"; // web address
+                    String url = itemBean.ItemContent;
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    context.startActivity(intent);
+                }
+            });
             viewHolder.title=(TextView)convertView.findViewById(R.id.tv_title);
             viewHolder.content=(TextView)convertView.findViewById(R.id.tv_content);
             convertView.setTag(viewHolder);     //创建新建的convertview和viewholder的关联
         }else{
-            viewHolder=(ViewHolder)convertView.getTag();
+            viewHolder=(ViewHolder) convertView.getTag();
         }
         ItemBean bean=mList.get(position);
-        viewHolder.imageView.setImageResource(bean.ItemImageResid);
+
         viewHolder.title.setText(bean.ItemTitle);
         viewHolder.content.setText(bean.ItemContent);
         return convertView;
         }
     class ViewHolder {                     //避免重复的findviewbyid
-        public ImageView imageView;
         public TextView title;
         public TextView content;
     }

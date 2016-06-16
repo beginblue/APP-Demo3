@@ -6,11 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
-import exercises.blue.demoagain.interfaces.myOnItemClickListener;
-import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
-import exercises.blue.demoagain.userdata.friendsDatum;
 import exercises.blue.demoagain.agendaFragement.agenda;
 import exercises.blue.demoagain.friendsFragment.fragmentFriends;
 
@@ -18,7 +13,7 @@ import exercises.blue.demoagain.friendsFragment.fragmentFriends;
  * ViewPager's Adapter
  * Created by getbl on 2016/4/18.
  */
-class fragmentPagerAdapter extends FragmentPagerAdapter  {
+class fragmentPagerAdapter extends FragmentPagerAdapter {
 
     fragmentFriends mFragmentFriendsAndroid;
     fragmentFriends mFragmentFriendsiOS;
@@ -33,9 +28,9 @@ class fragmentPagerAdapter extends FragmentPagerAdapter  {
         mFragmentFriendsFront = fragmentFriends.newInstance("前端");
 
         //friends = fragmentFriends.newInstance();
-       // mAgenda = agenda.newInstance();
+        // mAgenda = agenda.newInstance();
 
-}
+    }
 
     @Override
     public Fragment getItem(int position) {
@@ -49,6 +44,7 @@ class fragmentPagerAdapter extends FragmentPagerAdapter  {
      * 网上找来的方法1
      * http://blog.csdn.net/z13759561330/article/details/40737381
      * 然而并没有什么用
+     *
      * @param container container
      * @param position  position
      * @return
@@ -57,33 +53,6 @@ class fragmentPagerAdapter extends FragmentPagerAdapter  {
     public Object instantiateItem(ViewGroup container, int position) {
         return super.instantiateItem(container, position);
     }
-
-
-//    public void addFriends(friendsDatum datum, int position) {
-//        friends.getAdapter().add(datum, position);
-//        setFragments(friends);
-//    }
-//
-//    public void addFriends(friendsDatum datum) {
-//        friends.getAdapter().add(datum);
-//        setFragments(friends);
-//    }
-//
-//    public void removeFriends(int position) {
-//        friends.getAdapter().remove(position);
-//        setFragments(friends);
-//    }
-//
-//    public void addAgenda(int position) {
-//        mAgenda.getAdapter().addItem(position);
-//        setFragments(mAgenda);
-//    }
-//
-//    public void removeAgenda(int position) {
-//        mAgenda.getAdapter().removeItem(position);
-//        setFragments(mAgenda);
-//    }
-
 
     /**
      * 更新fragment
@@ -110,15 +79,6 @@ class fragmentPagerAdapter extends FragmentPagerAdapter  {
 
     }
 
-//    public void refreshFriends(){
-//        ArrayList<friendsDatum> data = new ArrayList<>();
-//        data.add(new friendsDatum("33","22"));
-//        data.add(new friendsDatum("33","22"));
-//        data.add(new friendsDatum("33","22"));
-//        friends.getd().addList(data);
-//        setFragments(friends);
-//    }
-
 
     @Override
     public int getCount() {
@@ -139,24 +99,4 @@ class fragmentPagerAdapter extends FragmentPagerAdapter  {
         }
     }
 
-
-
-//    private myOnItemClickListener mClickListener;
-//    private myOnItemLongClickListener mLongClickListener;
-//    public void setListeners(myOnItemClickListener clickListener, myOnItemLongClickListener longClickListener){
-//        mClickListener=clickListener;
-//        mLongClickListener=longClickListener;
-//        setListenersToFragments();
-//    }
-//    private void setListenersToFragments(){
-//        if(mFragmentFriendsAndroid!=null){
-//            mFragmentFriendsAndroid.setClickListeners(mClickListener,mLongClickListener);
-//        }
-//        if(mFragmentFriendsiOS!=null){
-//            mFragmentFriendsiOS.setClickListeners(mClickListener,mLongClickListener);
-//        }
-//        if(mFragmentFriendsFront!=null){
-//            mFragmentFriendsFront.setClickListeners(mClickListener,mLongClickListener);
-//        }
-//    }
 }
