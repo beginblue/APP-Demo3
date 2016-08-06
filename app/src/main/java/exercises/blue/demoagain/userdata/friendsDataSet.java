@@ -26,9 +26,9 @@ public class friendsDataSet {
     private friendsDataSet() {
         /*福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all*/
         mDataPool= new HashMap<>();
-        mDataPool.put("Android",new ArrayList<friendsDatum>());
-        mDataPool.put("iOS",new ArrayList<friendsDatum>());
-        mDataPool.put("前端",new ArrayList<friendsDatum>());
+        mDataPool.put("Android",new ArrayList<beautyData.ResultsBean>());
+        mDataPool.put("iOS",new ArrayList<beautyData.ResultsBean>());
+        mDataPool.put("前端",new ArrayList<beautyData.ResultsBean>());
         mDataPool.put("福利",new ArrayList<beautyData.ResultsBean>());
     }
 

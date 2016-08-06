@@ -56,7 +56,7 @@ MyAdapter extends BaseAdapter{
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ItemBean itemBean = mList.get(position);//"http://cn.bing.com"; // web address
+                    ItemBean itemBean = mList.get(position);
                     String url = itemBean.ItemContent;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(url));

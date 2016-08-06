@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import exercises.blue.demoagain.BeautyGallery.imageloader.imageLoader;
 import exercises.blue.demoagain.R;
@@ -58,7 +59,7 @@ public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHold
     }
 
 
-    public void addAll(ArrayList<beautyData.ResultsBean> beans) {
+    public void addAll(List<beautyData.ResultsBean> beans) {
         //if(mData==null) mData=new ArrayList<>();
         for (beautyData.ResultsBean bean : beans) {
             mData.add(0, bean);

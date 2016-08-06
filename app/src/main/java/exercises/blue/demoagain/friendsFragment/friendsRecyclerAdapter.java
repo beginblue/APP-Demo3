@@ -15,8 +15,8 @@ import java.util.List;
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.interfaces.myOnItemClickListener;
 import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
+import exercises.blue.demoagain.userdata.beautyData;
 import exercises.blue.demoagain.userdata.friendsDataSet;
-import exercises.blue.demoagain.userdata.friendsDatum;
 
 /**
  * Created by getbl on 2016/4/22.
@@ -31,7 +31,7 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
     //private  friendsDataSet mDataSet = friendsDataSet.newInstance();
     //TODO:换成操纵DataSet
     private friendsDataSet mDataSet = friendsDataSet.newInstance();
-    //private ArrayList<friendsDatum> mData;// = mDataSet.getList(mCategory);//mCategory is null
+    //private ArrayList<beautyData.ResultsBean> mData;// = mDataSet.getList(mCategory);//mCategory is null
 
 
     //
@@ -45,7 +45,7 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         //mData = mDataSet.getList(mCategory);
     }
 
-    private List<friendsDatum> getData(String category){
+    private List<beautyData.ResultsBean> getData(String category){
         return mDataSet.getList(category);
     }
 
@@ -58,16 +58,17 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
 
     @Override
     public void onBindViewHolder(recyclerViewHolder holder, int position) {
-        friendsDatum datum = getData(mCategory).get(position);
-        holder.title.setText(datum.getTitle());
-        holder.content.setText(datum.getContent());
-        holder.author.setText(datum.getAuthor());
+        //beautyData.ResultsBean datum = getData(mCategory).get(position);
+        beautyData.ResultsBean datum = getData(mCategory).get(position);
+        holder.title.setText(datum.getDesc());
+        holder.content.setText(datum.getUrl());
+        holder.author.setText(datum.getWho());
     }
 
     @Override
     public int getItemCount() {
         //Log.e(TAG, "getItemCount: " + mData.size() + " category: " + mCategory);
-        ArrayList<friendsDatum> mData = (ArrayList<friendsDatum>) getData(mCategory);
+        ArrayList<beautyData.ResultsBean> mData = (ArrayList<beautyData.ResultsBean>) getData(mCategory);
         if (mData == null) {
             Log.e(TAG, "getItemCount: mData is null. category: " + mCategory);
             return 0;
@@ -76,13 +77,13 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
 
     }
 
-    public void add(friendsDatum datum) {
+    public void add(beautyData.ResultsBean datum) {
         notifyItemInserted(getData(mCategory).size());
         getData(mCategory).add(datum);
     }
 
 
-    public void add(friendsDatum datum, int position) {
+    public void add(beautyData.ResultsBean datum, int position) {
         notifyItemInserted(position);
         if (position > getData(mCategory).size()) {
             getData(mCategory).add(datum);
@@ -107,7 +108,7 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
         getData(mCategory).remove(position);
     }
 
-    public void addList(String category, List<friendsDatum> list) {
+    public void addList(String category, List<beautyData.ResultsBean> list) {
         mCategory = category;//不负责任的做法
 
        // mDataSet.setList(mCategory, list);
@@ -115,19 +116,26 @@ public class friendsRecyclerAdapter extends RecyclerView.Adapter<friendsRecycler
          * 少年要开始做死了
          * 然而并没有什么特殊的效果
          */
-        for (friendsDatum datum : list) {
+        for (beautyData.ResultsBean datum : list) {
             add(datum, 0);
         }
         notifyDataSetChanged();
     }
 
     public String getItemUrl(int position) {
-        return ((ArrayList<friendsDatum>)mDataSet.getList(mCategory)).get(position).getContent();
+        return ((ArrayList<beautyData.ResultsBean>)mDataSet.getList(mCategory)).get(position).getUrl();
     }
 
     public String getItemTitle(int position){
-        return ((ArrayList<friendsDatum>)mDataSet.getList(mCategory)).get(position).getTitle();
+        return ((ArrayList<beautyData.ResultsBean>)mDataSet.getList(mCategory)).get(position).getDesc();
     }
+
+    public void addAll(String category, List<beautyData.ResultsBean> results) {
+        mCategory = category;//不负责任的做法
+        mDataSet.getList(category).addAll(results);
+        notifyDataSetChanged();
+    }
+
     /**
      * view holder
      */

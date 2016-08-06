@@ -17,23 +17,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import exercises.blue.demoagain.R;
+import exercises.blue.demoagain.Retrofit.retrofitBody;
 import exercises.blue.demoagain.interfaces.myOnItemClickListener;
 import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
-import exercises.blue.demoagain.userdata.friendsDatum;
+import exercises.blue.demoagain.userdata.beautyData;
+import rx.Subscriber;
 
 /**
  * so many problems - -
@@ -129,48 +120,75 @@ public class fragmentFriends extends Fragment
 
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.refresh);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mRequestQueue = Volley.newRequestQueue(mView.getContext());
-
-                final int page = (adapter.getItemCount() / 10) + 1;
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                        "http://gank.io/api/data/" + mCategory + "/10/" + (page),
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    Log.i(TAG, "onResponse: current page " + page);
-                                    ArrayList<friendsDatum> fList = new ArrayList<friendsDatum>();
-
-                                    JSONArray jsonArray = response.getJSONArray("results");
-                                    for (int count = 0; count < jsonArray.length(); count++) {
-                                        JSONObject jsonObject = jsonArray.getJSONObject(count);
-                                        Log.i(TAG, "onResponse:" + jsonObject.getString("desc") + ":"
-                                                + jsonObject.getString("url"));
-                                        fList.add(new friendsDatum(
-                                                jsonObject.getString("desc"),
-                                                jsonObject.getString("url"),
-                                                jsonObject.getString("who")));
-                                    }
-                                    adapter.addList(mCategory, fList);
-                                } catch (JSONException e) {
-
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }, new Response.ErrorListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "onErrorResponse: " + error.getMessage());
+                    public void onRefresh() {
+                        new retrofitBody().beautyRequest(mCategory,
+                                10,
+                                adapter.getItemCount() / 10 + 1,
+                                new Subscriber<beautyData>() {
+                                    @Override
+                                    public void onCompleted() {
+                                        mSwipeRefreshLayout.setRefreshing(false);
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        e.printStackTrace();
+                                        System.out.println(e.getCause());
+                                        mSwipeRefreshLayout.setRefreshing(false);
+                                    }
+
+                                    @Override
+                                    public void onNext(beautyData data) {
+                                        adapter.addAll(mCategory,data.getResults());
+                                    }
+                                });
                     }
                 });
-                mRequestQueue.add(request);
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
+//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                mRequestQueue = Volley.newRequestQueue(mView.getContext());
+//
+//                final int page = (adapter.getItemCount() / 10) + 1;
+//                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+//                        "http://gank.io/api/data/" + mCategory + "/10/" + (page),
+//                        new Response.Listener<JSONObject>() {
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//                                try {
+//                                    Log.i(TAG, "onResponse: current page " + page);
+//                                    ArrayList<friendsDatum> fList = new ArrayList<friendsDatum>();
+//
+//                                    JSONArray jsonArray = response.getJSONArray("results");
+//                                    for (int count = 0; count < jsonArray.length(); count++) {
+//                                        JSONObject jsonObject = jsonArray.getJSONObject(count);
+//                                        Log.i(TAG, "onResponse:" + jsonObject.getString("desc") + ":"
+//                                                + jsonObject.getString("url"));
+//                                        fList.add(new friendsDatum(
+//                                                jsonObject.getString("desc"),
+//                                                jsonObject.getString("url"),
+//                                                jsonObject.getString("who")));
+//                                    }
+//                                    adapter.addList(mCategory, fList);
+//                                } catch (JSONException e) {
+//
+//                                    e.printStackTrace();
+//                                }
+//
+//                            }
+//                        }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.e(TAG, "onErrorResponse: " + error.getMessage());
+//                    }
+//                });
+//                mRequestQueue.add(request);
+//                mSwipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
         return mView;
     }
 
