@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -27,8 +26,6 @@ import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.agendaFragement.agenda;
 import exercises.blue.demoagain.friendsFragment.friendsRecyclerAdapter;
 import exercises.blue.demoagain.seek.Main2Activity;
-import exercises.blue.demoagain.singleActivities.dianming;
-import exercises.blue.demoagain.singleActivities.publishActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, agenda.OnFragmentInteractionListener {
@@ -54,15 +51,15 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
         //加载FloatingActionButton
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         //assert fab != null;
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showMyDialog();
-            }
-
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showMyDialog();
+//            }
+//
+//        });
 
 
         //加载侧边栏
@@ -130,11 +127,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void showMyDialog() {
-        Intent addActivityIntent = new Intent(getApplicationContext(), publishActivity.class);
-        startActivityForResult(addActivityIntent, 213);
-
-    }
+//    private void showMyDialog() {
+//        Intent addActivityIntent = new Intent(getApplicationContext(), publishActivity.class);
+//        startActivityForResult(addActivityIntent, 213);
+//
+//    }
 
     @Override
     public void onBackPressed() {
@@ -244,8 +241,8 @@ public class MainActivity extends AppCompatActivity
             //startActivity(intent);
         } else if (id == R.id.dianming) {
             //TODO:点名页面
-            Intent intent = new Intent(getApplicationContext(), dianming.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getApplicationContext(), dianming.class);
+//            startActivity(intent);
         } else if (id == R.id.nav_share) {
             //Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
 //            IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);

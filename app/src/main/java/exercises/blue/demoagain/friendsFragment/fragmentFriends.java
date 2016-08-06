@@ -23,7 +23,7 @@ import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.Retrofit.retrofitBody;
 import exercises.blue.demoagain.interfaces.myOnItemClickListener;
 import exercises.blue.demoagain.interfaces.myOnItemLongClickListener;
-import exercises.blue.demoagain.userdata.beautyData;
+import exercises.blue.demoagain.userdata.responseBean;
 import rx.Subscriber;
 
 /**
@@ -127,7 +127,7 @@ public class fragmentFriends extends Fragment
                         new retrofitBody().beautyRequest(mCategory,
                                 10,
                                 adapter.getItemCount() / 10 + 1,
-                                new Subscriber<beautyData>() {
+                                new Subscriber<responseBean>() {
                                     @Override
                                     public void onCompleted() {
                                         mSwipeRefreshLayout.setRefreshing(false);
@@ -141,7 +141,7 @@ public class fragmentFriends extends Fragment
                                     }
 
                                     @Override
-                                    public void onNext(beautyData data) {
+                                    public void onNext(responseBean data) {
                                         adapter.addAll(mCategory,data.getResults());
                                     }
                                 });

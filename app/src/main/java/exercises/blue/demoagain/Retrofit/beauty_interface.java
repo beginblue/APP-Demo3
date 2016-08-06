@@ -1,7 +1,7 @@
 package exercises.blue.demoagain.Retrofit;
 
 
-import exercises.blue.demoagain.userdata.beautyData;
+import exercises.blue.demoagain.userdata.responseBean;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
@@ -16,8 +16,8 @@ import rx.Observable;
  */
 public interface beauty_interface {
         @GET("api/data/{category}/{count}/{page}")
-        Observable<beautyData> getResult(@Path("category") String category,
-                                         @Path("count") int count,
-                                         @Path("page") int page);
+        Observable<responseBean> getResult(@Path("category") String category,
+                                           @Path("count") int count,
+                                           @Path("page") int page);
     }
 

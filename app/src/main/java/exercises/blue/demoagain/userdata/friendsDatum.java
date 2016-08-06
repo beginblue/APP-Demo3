@@ -1,6 +1,9 @@
 package exercises.blue.demoagain.userdata;
 
 /**
+ *
+ * Discarded！！
+ * This has been replaced by responseBean
  * Created by getbl on 2016/4/20.
  */
 public class friendsDatum {

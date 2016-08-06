@@ -13,7 +13,7 @@ import com.android.volley.RequestQueue;
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.Retrofit.retrofitBody;
 import exercises.blue.demoagain.friendsFragment.fDividerItemDecoration;
-import exercises.blue.demoagain.userdata.beautyData;
+import exercises.blue.demoagain.userdata.responseBean;
 import exercises.blue.demoagain.userdata.friendsDataSet;
 import rx.Subscriber;
 
@@ -57,7 +57,7 @@ public class BeautyCards extends AppCompatActivity {
                         new retrofitBody().beautyRequest(mCategory,
                                 10,
                                 mBeautyAdapter.getItemCount() / 10 + 1,
-                                new Subscriber<beautyData>() {
+                                new Subscriber<responseBean>() {
                                     @Override
                                     public void onCompleted() {
                                         mSwipeRefreshLayout.setRefreshing(false);
@@ -71,7 +71,7 @@ public class BeautyCards extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onNext(beautyData data) {
+                                    public void onNext(responseBean data) {
                                         mBeautyAdapter.addAll(data.getResults());
                                     }
                                 });
@@ -99,13 +99,13 @@ public class BeautyCards extends AppCompatActivity {
 //                            public void onResponse(JSONObject response) {
 //                                try {
 //                                    Log.i(TAG, "onResponse: current page " + page);
-//                                    ArrayList<beautyData.ResultsBean> fList = new ArrayList<>();
+//                                    ArrayList<responseBean.ResultsBean> fList = new ArrayList<>();
 //                                    Log.i(TAG, "onResponse: ???");
 //                                    //fList.add(0,new friendsDatum("--------------","222222"));
 //                                    JSONArray jsonArray = response.getJSONArray("results");
 //                                    for (int count = 0; count < jsonArray.length(); count++) {
 //                                        JSONObject jsonObject = jsonArray.getJSONObject(count);
-//                                        beautyData.ResultsBean bean = new beautyData.ResultsBean();
+//                                        responseBean.ResultsBean bean = new responseBean.ResultsBean();
 //                                        bean.setDesc(jsonObject.getString("desc"));
 //                                        bean.setUrl(jsonObject.getString("url"));
 //                                        Log.i(TAG, "onResponse:"+jsonObject.getString("desc"));

@@ -26,10 +26,10 @@ public class friendsDataSet {
     private friendsDataSet() {
         /*福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all*/
         mDataPool= new HashMap<>();
-        mDataPool.put("Android",new ArrayList<beautyData.ResultsBean>());
-        mDataPool.put("iOS",new ArrayList<beautyData.ResultsBean>());
-        mDataPool.put("前端",new ArrayList<beautyData.ResultsBean>());
-        mDataPool.put("福利",new ArrayList<beautyData.ResultsBean>());
+        mDataPool.put("Android",new ArrayList<responseBean.ResultsBean>());
+        mDataPool.put("iOS",new ArrayList<responseBean.ResultsBean>());
+        mDataPool.put("前端",new ArrayList<responseBean.ResultsBean>());
+        mDataPool.put("福利",new ArrayList<responseBean.ResultsBean>());
     }
 
     public static friendsDataSet newInstance() {
@@ -50,7 +50,7 @@ public class friendsDataSet {
     }
 
 
-//    public ArrayList<beautyData.ResultsBean> getBeauties(){
+//    public ArrayList<responseBean.ResultsBean> getBeauties(){
 //        return mDataPool.get("福利");
 //    }
 

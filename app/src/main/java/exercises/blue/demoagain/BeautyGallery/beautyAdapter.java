@@ -14,7 +14,7 @@ import java.util.List;
 
 import exercises.blue.demoagain.BeautyGallery.imageloader.imageLoader;
 import exercises.blue.demoagain.R;
-import exercises.blue.demoagain.userdata.beautyData;
+import exercises.blue.demoagain.userdata.responseBean;
 import exercises.blue.demoagain.userdata.friendsDataSet;
 
 /**
@@ -25,17 +25,17 @@ public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHold
 
     private static final String TAG = "beautyAdapter";
     private LruCache<String, Bitmap> cache;
-    private ArrayList<beautyData.ResultsBean> mData;
+    private ArrayList<responseBean.ResultsBean> mData;
 
 
     public beautyAdapter() {
         cache = new LruCache<>((int) (Runtime.getRuntime().maxMemory() / 8196));
 
-        mData = (ArrayList<beautyData.ResultsBean>) friendsDataSet.newInstance().getList("福利");
-        //if(mData==null) mData= new ArrayList<beautyData.ResultsBean>();
+        mData = (ArrayList<responseBean.ResultsBean>) friendsDataSet.newInstance().getList("福利");
+        //if(mData==null) mData= new ArrayList<responseBean.ResultsBean>();
     }
 
-    public void addBeauty(beautyData deltaData) {
+    public void addBeauty(responseBean deltaData) {
         mData.addAll(deltaData.getResults());
     }
 
@@ -48,7 +48,7 @@ public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHold
 
     @Override
     public void onBindViewHolder(beautyHolder holder, int position) {
-        beautyData.ResultsBean bean = mData.get(position);
+        responseBean.ResultsBean bean = mData.get(position);
         new imageLoader(cache).from(bean.getUrl()).into(holder.mImageView).execute();
         holder.mTextView.setText(bean.getDesc());
     }
@@ -59,9 +59,9 @@ public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHold
     }
 
 
-    public void addAll(List<beautyData.ResultsBean> beans) {
+    public void addAll(List<responseBean.ResultsBean> beans) {
         //if(mData==null) mData=new ArrayList<>();
-        for (beautyData.ResultsBean bean : beans) {
+        for (responseBean.ResultsBean bean : beans) {
             mData.add(0, bean);
         }
 

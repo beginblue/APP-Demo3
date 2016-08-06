@@ -1,6 +1,6 @@
 package exercises.blue.demoagain.Retrofit;
 
-import exercises.blue.demoagain.userdata.beautyData;
+import exercises.blue.demoagain.userdata.responseBean;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,7 +14,7 @@ import rx.schedulers.Schedulers;
 public class retrofitBody {
     private Retrofit retrofit;
     private beauty_interface service;
-    private beautyData toRtn;
+    private responseBean toRtn;
     boolean finished =false;
 //    Handler handler ;
 //
@@ -34,18 +34,18 @@ public class retrofitBody {
         service = retrofit.create(beauty_interface.class);
     }
 
-    public void beautyRequest(String category,int count,int page,Subscriber<beautyData> subscriber) {
+    public void beautyRequest(String category,int count,int page,Subscriber<responseBean> subscriber) {
         prepare();
         service.getResult(category, count, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 //.subscribeOn(Schedulers.newThread())
                 .subscribe(subscriber);
-//                .subscribe(new Subscriber<beautyData>() {
+//                .subscribe(new Subscriber<responseBean>() {
 //                    @Override
 //                    public void onCompleted() {
 //                        System.out.println("onCompleted");
-//                        for (beautyData.ResultsBean bean :
+//                        for (responseBean.ResultsBean bean :
 //                                toRtn.getResults()) {
 //                            System.out.println(bean.get_id()+bean.getDesc());
 //                        }
@@ -58,9 +58,9 @@ public class retrofitBody {
 //                    }
 //
 //                    @Override
-//                    public void onNext(beautyData beautyData) {
+//                    public void onNext(responseBean responseBean) {
 //                        System.out.println("onNext");
-//                        toRtn = beautyData;
+//                        toRtn = responseBean;
 //                    }
 //                });
 
