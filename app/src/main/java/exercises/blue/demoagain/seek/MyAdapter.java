@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import exercises.blue.demoagain.R;
@@ -18,9 +20,18 @@ import exercises.blue.demoagain.R;
  */
 public class
 MyAdapter extends BaseAdapter{
-    private  List<ItemBean> mList;              //数据源与数据适配器进行关联
-    public void addAll(List<ItemBean> list) {
-        mList = list;
+    private  List<seekResponse.ResultsBean> mList;              //数据源与数据适配器进行关联
+
+
+    public void addAll(List<seekResponse.ResultsBean> resultsBeanList){
+        mList.addAll(resultsBeanList);
+        notifyDataSetChanged();
+    }
+
+
+    public void removeAll(){
+        mList=new LinkedList<>();
+        System.gc();
         notifyDataSetChanged();
     }
 
@@ -56,8 +67,8 @@ MyAdapter extends BaseAdapter{
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ItemBean itemBean = mList.get(position);
-                    String url = itemBean.ItemContent;
+                   seekResponse.ResultsBean itemBean = mList.get(position);
+                    String url = itemBean.getUrl();
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(url));
                     context.startActivity(intent);
@@ -65,18 +76,20 @@ MyAdapter extends BaseAdapter{
             });
             viewHolder.title=(TextView)convertView.findViewById(R.id.tv_title);
             viewHolder.content=(TextView)convertView.findViewById(R.id.tv_content);
+            viewHolder.mWebView=(WebView) convertView.findViewById(R.id.webView);
             convertView.setTag(viewHolder);     //创建新建的convertview和viewholder的关联
         }else{
             viewHolder=(ViewHolder) convertView.getTag();
         }
-        ItemBean bean=mList.get(position);
-
-        viewHolder.title.setText(bean.ItemTitle);
-        viewHolder.content.setText(bean.ItemContent);
+        seekResponse.ResultsBean bean=mList.get(position);
+        viewHolder.mWebView.loadDataWithBaseURL(null,"<html><body<"+bean.getReadability()+"</body></html>","text/html","utf-8",null);
+        viewHolder.title.setText(bean.getDesc());
+        viewHolder.content.setText(bean.getUrl());
         return convertView;
         }
     class ViewHolder {                     //避免重复的findviewbyid
         public TextView title;
         public TextView content;
+        public WebView mWebView;
     }
 }

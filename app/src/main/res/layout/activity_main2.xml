@@ -31,12 +31,19 @@
         android:layout_alignTop="@+id/EditText1"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EditText1"
+        android:background="#aaaaaa"
+        tools:listitem=""/>
     <ListView
         android:id="@+id/lv_main"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@+id/EditText1"
-
+        android:layout_below="@+id/spinner"
         />
 
 </RelativeLayout>

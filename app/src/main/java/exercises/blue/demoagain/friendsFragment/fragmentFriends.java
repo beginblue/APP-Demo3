@@ -17,8 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.RequestQueue;
-
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.Retrofit.retrofitBody;
 import exercises.blue.demoagain.interfaces.myOnItemClickListener;
@@ -33,7 +31,7 @@ import rx.Subscriber;
  * Created by getbl on 2016/4/18.
  */
 public class fragmentFriends extends Fragment
-        implements myOnItemClickListener, myOnItemLongClickListener {
+        implements myOnItemClickListener, myOnItemLongClickListener,SwipeRefreshLayout.OnRefreshListener {
 
 
     private static final String TAG = "bluelog";
@@ -41,7 +39,6 @@ public class fragmentFriends extends Fragment
     // fragmentFriends master;
     RecyclerView mRecyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    RequestQueue mRequestQueue;
     myOnItemClickListener mItemClickListener;
     myOnItemLongClickListener mItemLongClickListener;
     String mCategory;
@@ -120,33 +117,8 @@ public class fragmentFriends extends Fragment
 
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.refresh);
-        mSwipeRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        new retrofitBody().beautyRequest(mCategory,
-                                10,
-                                adapter.getItemCount() / 10 + 1,
-                                new Subscriber<responseBean>() {
-                                    @Override
-                                    public void onCompleted() {
-                                        mSwipeRefreshLayout.setRefreshing(false);
-                                    }
-
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        e.printStackTrace();
-                                        System.out.println(e.getCause());
-                                        mSwipeRefreshLayout.setRefreshing(false);
-                                    }
-
-                                    @Override
-                                    public void onNext(responseBean data) {
-                                        adapter.addAll(mCategory,data.getResults());
-                                    }
-                                });
-                    }
-                });
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        onRefresh();
 //        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
 //            public void onRefresh() {
@@ -238,4 +210,28 @@ public class fragmentFriends extends Fragment
         startActivity(intent);
     }
 
+    @Override
+    public void onRefresh() {
+        new retrofitBody().beautyRequest(mCategory,
+                10,
+                adapter.getItemCount() / 10 + 1,
+                new Subscriber<responseBean>() {
+                    @Override
+                    public void onCompleted() {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        System.out.println(e.getCause());
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onNext(responseBean data) {
+                         adapter.addAll(mCategory,data.getResults());
+                    }
+                });
+    }
 }

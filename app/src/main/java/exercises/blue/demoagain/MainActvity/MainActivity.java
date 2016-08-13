@@ -235,20 +235,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             Intent intent = new Intent(MainActivity.this,Main2Activity.class);
             startActivity(intent);
-        } else if ( id == R.id.nav_slideshow) {
-
-            //Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-            //startActivity(intent);
-        } else if (id == R.id.dianming) {
-            //TODO:点名页面
-//            Intent intent = new Intent(getApplicationContext(), dianming.class);
-//            startActivity(intent);
-        } else if (id == R.id.nav_share) {
-            //Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
-//            IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
-//            intentIntegrator.initiateScan();
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

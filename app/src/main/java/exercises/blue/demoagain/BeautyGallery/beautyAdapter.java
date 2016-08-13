@@ -42,9 +42,12 @@ public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHold
 
     @Override
     public beautyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.beauty_item, parent, false);
+        View view;
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.beauty_item, parent, false);
         return new beautyHolder(view);
+
     }
+
 
     @Override
     public void onBindViewHolder(beautyHolder holder, int position) {
@@ -62,9 +65,8 @@ public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHold
     public void addAll(List<responseBean.ResultsBean> beans) {
         //if(mData==null) mData=new ArrayList<>();
         for (responseBean.ResultsBean bean : beans) {
-            mData.add(0, bean);
+            mData.add(bean);
         }
-
         notifyDataSetChanged();
     }
 
@@ -77,7 +79,6 @@ public class beautyAdapter extends RecyclerView.Adapter<beautyAdapter.beautyHold
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.bPhoto);
             mTextView = (TextView) itemView.findViewById(R.id.bDesc);
-
         }
     }
 

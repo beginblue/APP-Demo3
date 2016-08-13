@@ -8,26 +8,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.android.volley.RequestQueue;
-
 import exercises.blue.demoagain.R;
 import exercises.blue.demoagain.Retrofit.retrofitBody;
 import exercises.blue.demoagain.friendsFragment.fDividerItemDecoration;
 import exercises.blue.demoagain.userdata.responseBean;
-import exercises.blue.demoagain.userdata.friendsDataSet;
 import rx.Subscriber;
 
-public class BeautyCards extends AppCompatActivity {
+public class BeautyCards extends AppCompatActivity
+        implements SwipeRefreshLayout.OnRefreshListener {
 
 
     private static final String TAG = "bluelog";
     // friendsRecyclerAdapter adapter;
-
-    friendsDataSet mDataSet = friendsDataSet.newInstance();
     // fragmentFriends master;
     RecyclerView mRecyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    RequestQueue mRequestQueue;
     String mCategory = "福利";
     beautyAdapter mBeautyAdapter;
 
@@ -50,87 +45,34 @@ public class BeautyCards extends AppCompatActivity {
             mRecyclerView.addItemDecoration(new fDividerItemDecoration(5));
         }
 
-        mSwipeRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        onRefresh();
+
+    }
+
+    @Override
+    public void onRefresh() {
+        new retrofitBody().beautyRequest(mCategory,
+                10,
+                mBeautyAdapter.getItemCount() / 10 + 1,
+                new Subscriber<responseBean>() {
                     @Override
-                    public void onRefresh() {
-                        new retrofitBody().beautyRequest(mCategory,
-                                10,
-                                mBeautyAdapter.getItemCount() / 10 + 1,
-                                new Subscriber<responseBean>() {
-                                    @Override
-                                    public void onCompleted() {
-                                        mSwipeRefreshLayout.setRefreshing(false);
-                                    }
+                    public void onCompleted() {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
 
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        e.printStackTrace();
-                                        System.out.println(e.getCause());
-                                        mSwipeRefreshLayout.setRefreshing(false);
-                                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        System.out.println(e.getCause());
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
 
-                                    @Override
-                                    public void onNext(responseBean data) {
-                                        mBeautyAdapter.addAll(data.getResults());
-                                    }
-                                });
+                    @Override
+                    public void onNext(responseBean data) {
+
+                        mBeautyAdapter.addAll(data.getResults());
                     }
                 });
-
-//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                mRequestQueue = Volley.newRequestQueue(BeautyCards.this);
-//
-//                final int page = (mDataSet.getDataCount(mCategory) / 10) + 1;//脑残X2(╯‵□′)╯︵┻━┻
-//                Log.e(TAG, "onRefresh: page number " + page + "--adapter" + mDataSet.getDataCount(mCategory));
-//                /**
-//                 * Creates a new request.
-//                 * @param method the HTTP method to use
-//                 * @param url URL to fetch the JSON from
-//                 * @param listener Listener to receive the JSON response
-//                 * @param errorListener Error listener, or null to ignore errors.
-//                 */
-//                JsonObjectRequest bbb = new JsonObjectRequest(Request.Method.GET,
-//                        "http://gank.io/api/data/" + mCategory + "/10/" + (page),
-//                        new Response.Listener<JSONObject>() {
-//                            @Override
-//                            public void onResponse(JSONObject response) {
-//                                try {
-//                                    Log.i(TAG, "onResponse: current page " + page);
-//                                    ArrayList<responseBean.ResultsBean> fList = new ArrayList<>();
-//                                    Log.i(TAG, "onResponse: ???");
-//                                    //fList.add(0,new friendsDatum("--------------","222222"));
-//                                    JSONArray jsonArray = response.getJSONArray("results");
-//                                    for (int count = 0; count < jsonArray.length(); count++) {
-//                                        JSONObject jsonObject = jsonArray.getJSONObject(count);
-//                                        responseBean.ResultsBean bean = new responseBean.ResultsBean();
-//                                        bean.setDesc(jsonObject.getString("desc"));
-//                                        bean.setUrl(jsonObject.getString("url"));
-//                                        Log.i(TAG, "onResponse:"+jsonObject.getString("desc"));
-//                                        fList.add(bean);
-//                                    }
-//                                    //脑残!(╯‵□′)╯︵┻━┻
-//                                    mBeautyAdapter.addAll(fList);
-//                                    mSwipeRefreshLayout.setRefreshing(false);
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//
-//                            }
-//                        }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        mSwipeRefreshLayout.setRefreshing(false);
-//                        Log.e(TAG, "onErrorResponse: " + error.getMessage());
-//                    }
-//                });
-//                mRequestQueue.add(bbb);
-//
-//            }
-//        });
-
-
     }
 }
